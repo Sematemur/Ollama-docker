@@ -1,0 +1,98 @@
+# ============================================
+# DOCKER COMPOSE
+# ============================================
+# Tüm servisleri tek komutla ayağa kaldırır:
+#   docker compose up --build
+#
+# Servisleri durdurmak için:
+#   docker compose down
+
+version: '3.8'
+
+services:
+  # ============================================
+  # POSTGRESQL DATABASE
+  # ============================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: chat-postgres
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      # Veritabanı verilerini persist et
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - chat-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # BACKEND (FastAPI)
+  # ============================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chat-backend
+    ports:
+      - "8000:8000"           # localhost:8000 -> container:8000
+    env_file:
+      - .env
+    environment:
+      # Docker içinden host makineye erişmek için host.docker.internal kullan
+      - LITELLM_BASE_URL=${LITELLM_BASE_URL}
+      - LITELLM_API_KEY=${LITELLM_API_KEY}
+      - LITELLM_MODEL_NAME=${LITELLM_MODEL_NAME}
+      # PostgreSQL bağlantı bilgileri
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux desteği
+    depends_on:
+      postgres:
+        condition: service_healthy  # Postgres hazır olana kadar bekle
+    networks:
+      - chat-network
+    restart: unless-stopped
+
+  # ============================================
+  # FRONTEND (React + Vite)
+  # ============================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: chat-frontend
+    ports:
+      - "5173:5173"           # localhost:5173 -> container:5173
+    env_file:
+      - .env
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    depends_on:
+      - backend              # Backend başlamadan frontend başlamaz
+    networks:
+      - chat-network
+    restart: unless-stopped
+
+# ============================================
+# VOLUMES
+# ============================================
+# PostgreSQL verilerini kalıcı olarak saklar
+volumes:
+  postgres_data:
+
+# ============================================
+# NETWORK
+# ============================================
+# Tüm servislerin birbiriyle iletişim kurması için
+networks:
+  chat-network:
+    driver: bridge
