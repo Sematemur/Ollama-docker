@@ -97,9 +97,7 @@ def get_chat_response(user_message: str, history: List[Dict] = None) -> str:
     messages = []
 
     # Sistem mesajı ekle (agent'ın nasıl davranacağını belirler)
-    system_prompt = """Sen yardımcı bir asistansın. Kullanıcının sorularına
-    Türkçe olarak, samimi ve anlaşılır bir şekilde cevap ver.
-    Kısa ve öz cevaplar vermeye çalış."""
+    system_prompt = """you are a helpful AI assistant. Provide clear and concise answers."""
 
     messages.append(SystemMessage(content=system_prompt))
 
