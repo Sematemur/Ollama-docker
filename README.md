@@ -35,8 +35,6 @@ LiteLLM, Ollama ile uygulama arasinda bir gateway gorevi goruyor:
 
 ## Ekran Goruntuleri
 
-### LiteLLM Dashboards
-![LiteLLM](image.png)
 
 ### Chat Arayuzu
 ![Arayuz](image-1.png)
