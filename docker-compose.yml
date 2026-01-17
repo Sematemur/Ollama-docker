@@ -35,6 +35,39 @@ services:
       retries: 5
 
   # ============================================
+  # LITELLM PROXY
+  # ============================================
+  # Ollama ve diğer LLM'lere unified gateway
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: chat-litellm
+    ports:
+      - "8023:4000"             # localhost:8023 -> container:4000
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml
+    command: ["--config", "/app/config.yaml"]
+    env_file:
+      - .env
+    environment:
+      - UI_USERNAME=${LITELLM_UI_USERNAME}
+      - UI_PASSWORD=${LITELLM_UI_PASSWORD}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Ollama'ya erişim için
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - chat-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')\""]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ============================================
   # BACKEND (FastAPI)
   # ============================================
   backend:
@@ -47,17 +80,22 @@ services:
     env_file:
       - .env
     environment:
-      # Docker içinden host makineye erişmek için host.docker.internal kullan
-      - LITELLM_BASE_URL=${LITELLM_BASE_URL}
+      # LiteLLM docker network üzerinden erişim
+      - LITELLM_BASE_URL=http://litellm:4000/
       - LITELLM_API_KEY=${LITELLM_API_KEY}
       - LITELLM_MODEL_NAME=${LITELLM_MODEL_NAME}
       # PostgreSQL bağlantı bilgileri
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    extra_hosts:
-      - "host.docker.internal:host-gateway"  # Linux desteği
+      # LangSmith Tracing
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT}
+      - LANGCHAIN_ENDPOINT=${LANGCHAIN_ENDPOINT}
     depends_on:
       postgres:
-        condition: service_healthy  # Postgres hazır olana kadar bekle
+        condition: service_healthy
+      litellm:
+        condition: service_healthy  # LiteLLM hazır olana kadar bekle
     networks:
       - chat-network
     restart: unless-stopped

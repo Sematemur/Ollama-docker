@@ -13,12 +13,25 @@ Bu dosyada ne yapıyoruz?
 1. LiteLLM'e bağlanan bir ChatOpenAI nesnesi oluşturuyoruz
 2. Sohbet geçmişini yöneten bir memory oluşturuyoruz
 3. Basit bir sohbet chain'i kuruyoruz
+4. LangSmith ile tüm LLM çağrılarını trace ediyoruz
 """
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from typing import List, Dict
 import os
+
+# ============================================
+# LangSmith Konfigürasyonu
+# ============================================
+# LangSmith ortam değişkenleri otomatik olarak okunur:
+# - LANGCHAIN_TRACING_V2=true -> tracing aktif
+# - LANGCHAIN_API_KEY -> API anahtarı
+# - LANGCHAIN_PROJECT -> proje adı
+# - LANGCHAIN_ENDPOINT -> API endpoint
+#
+# Bu değişkenler ayarlandığında LangChain otomatik olarak
+# tüm LLM çağrılarını LangSmith'e gönderir.
 
 # ============================================
 # LiteLLM Konfigürasyonu
