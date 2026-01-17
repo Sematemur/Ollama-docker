@@ -54,6 +54,6 @@ Bu sayede lokal Ollama modeli ile çalışan sistem uçtan uca izlenebilir hale 
 ![Arayuz](image2.png)
 
 ## LangSmith
-![Arayuz](image2.png)
+![Arayuz](image.png)
 
 
