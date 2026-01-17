@@ -51,9 +51,9 @@ Bu sayede lokal Ollama modeli ile çalışan sistem uçtan uca izlenebilir hale 
 
 
 ### Chat Arayuzu
-![Arayuz](image2.png)
+![Arayuz](image.png)
 
 ## LangSmith
-![Arayuz](image.png)
+![Arayuz](image2.png)
 
 
