@@ -14,5 +14,7 @@ coverage
 *.egg-info
 .mypy_cache
 .pytest_cache
-C:\Users\SEMA\Desktop\system-design\chat.db
-C:\Users\SEMA\Desktop\system-design\ml
+chat.db
+ml/
+k8s/secrets.yaml
+replacements.txt
