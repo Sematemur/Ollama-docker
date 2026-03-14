@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent-service
+  namespace: chat-system
+  labels:
+    app: agent
+    app.kubernetes.io/part-of: chat-system
+spec:
+  type: ClusterIP
+  selector:
+    app: agent
+  ports:
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+      name: http

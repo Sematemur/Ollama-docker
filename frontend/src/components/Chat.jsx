@@ -1,126 +1,56 @@
-/**
- * CHAT.JSX - Chat Bileşeni
- *
- * Bu bileşen chat arayüzünün tamamını oluşturur:
- * - Mesaj listesi
- * - Input alanı
- * - Gönder butonu
- *
- * React Hooks kullanıyoruz:
- * - useState: Bileşen durumunu tutmak için (mesajlar, input değeri, vs.)
- * - useEffect: Yan etkileri yönetmek için (session ID oluşturma)
- * - useRef: DOM elementlerine referans tutmak için (otomatik scroll)
- */
-
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
-// Backend API adresi
-const API_URL = 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 function Chat() {
-  // ============================================
-  // State Tanımlamaları
-  // ============================================
-
-  // Mesajların listesi - her mesaj { role: 'user'|'assistant', content: '...' } formatında
   const [messages, setMessages] = useState([])
-
-  // Kullanıcının yazdığı metin
   const [inputValue, setInputValue] = useState('')
-
-  // Cevap beklenirken true olur (loading durumu)
   const [isLoading, setIsLoading] = useState(false)
-
-  // Sohbet oturumu ID'si - her sayfa açılışında yeni bir ID oluşturulur
   const [sessionId, setSessionId] = useState(null)
-
-  // Hata mesajı
   const [error, setError] = useState(null)
-
-  // Mesaj listesinin sonuna scroll yapmak için referans
-  const messagesEndRef = useRef(null)
-
-  // ============================================
-  // useEffect - Session ID Oluşturma
-  // ============================================
+const messagesEndRef = useRef(null)
 
   useEffect(() => {
-    // Sayfa yüklendiğinde benzersiz bir session ID oluştur
-    // crypto.randomUUID() modern tarayıcılarda çalışır
-    const newSessionId = crypto.randomUUID()
-    setSessionId(newSessionId)
-    console.log('Yeni session başlatıldı:', newSessionId)
-  }, []) // Boş array: sadece ilk render'da çalışır
-
-  // ============================================
-  // useEffect - Otomatik Scroll
-  // ============================================
+    setSessionId(crypto.randomUUID())
+  }, [])
 
   useEffect(() => {
-    // Yeni mesaj geldiğinde en alta scroll yap
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages]) // messages değiştiğinde çalışır
-
-  // ============================================
-  // Mesaj Gönderme Fonksiyonu
-  // ============================================
+  }, [messages])
 
   const sendMessage = async () => {
-    // Boş mesaj gönderme
     if (!inputValue.trim()) return
 
-    // Kullanıcı mesajını state'e ekle (anında görünsün)
-    const userMessage = { role: 'user', content: inputValue }
-    setMessages(prev => [...prev, userMessage])
-
-    // Input'u temizle
+    const messageText = inputValue
+    setMessages(prev => [...prev, { role: 'user', content: messageText }])
     setInputValue('')
-
-    // Loading durumunu başlat
     setIsLoading(true)
     setError(null)
 
     try {
-      // Backend'e POST isteği gönder
       const response = await axios.post(`${API_URL}/chat`, {
-        message: inputValue,
-        session_id: sessionId
+        message: messageText,
+        session_id: sessionId || undefined,
       })
-
-      // Cevabı state'e ekle
-      const assistantMessage = {
-        role: 'assistant',
-        content: response.data.response
-      }
-      setMessages(prev => [...prev, assistantMessage])
-
+      setMessages(prev => [...prev, { role: 'assistant', content: response.data.response }])
     } catch (err) {
-      console.error('Hata:', err)
-      setError('Mesaj gönderilemedi. Backend çalışıyor mu?')
+      const detail = err.response?.data?.detail || err.message
+      setError(detail || 'Mesaj gönderilemedi. Backend çalışıyor mu?')
     } finally {
       setIsLoading(false)
     }
   }
 
-  // ============================================
-  // Enter Tuşu ile Gönderme
-  // ============================================
-
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       sendMessage()
     }
   }
 
-  // ============================================
-  // Render
-  // ============================================
-
   return (
     <div style={styles.container}>
-      {/* Mesaj Listesi */}
       <div style={styles.messageList}>
         {messages.length === 0 ? (
           <div style={styles.emptyState}>
@@ -132,7 +62,7 @@ function Chat() {
               key={index}
               style={{
                 ...styles.message,
-                ...(msg.role === 'user' ? styles.userMessage : styles.assistantMessage)
+                ...(msg.role === 'user' ? styles.userMessage : styles.assistantMessage),
               }}
             >
               <div style={styles.messageRole}>
@@ -143,7 +73,6 @@ function Chat() {
           ))
         )}
 
-        {/* Loading Göstergesi */}
         {isLoading && (
           <div style={{ ...styles.message, ...styles.assistantMessage }}>
             <div style={styles.messageRole}>Asistan</div>
@@ -151,22 +80,17 @@ function Chat() {
           </div>
         )}
 
-        {/* Hata Mesajı */}
-        {error && (
-          <div style={styles.error}>{error}</div>
-        )}
+        {error && <div style={styles.error}>{error}</div>}
 
-        {/* Scroll için referans noktası */}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Alanı */}
-      <div style={styles.inputContainer}>
+<div style={styles.inputContainer}>
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
           placeholder="Mesajınızı yazın..."
           style={styles.input}
           disabled={isLoading}
@@ -176,7 +100,7 @@ function Chat() {
           disabled={isLoading || !inputValue.trim()}
           style={{
             ...styles.button,
-            ...(isLoading || !inputValue.trim() ? styles.buttonDisabled : {})
+            ...(isLoading || !inputValue.trim() ? styles.buttonDisabled : {}),
           }}
         >
           Gönder
@@ -185,12 +109,6 @@ function Chat() {
     </div>
   )
 }
-
-// ============================================
-// Inline Stiller
-// ============================================
-// Not: Büyük projelerde CSS modülleri veya styled-components kullanılır.
-// Basitlik için inline style kullandık.
 
 const styles = {
   container: {
@@ -252,7 +170,7 @@ const styles = {
     backgroundColor: '#ffebee',
     borderRadius: '8px',
   },
-  inputContainer: {
+inputContainer: {
     display: 'flex',
     padding: '16px',
     borderTop: '1px solid #eee',

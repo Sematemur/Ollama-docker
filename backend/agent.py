@@ -1,139 +1,109 @@
-"""
-AGENT.PY - LangChain ile Chat Agent
+"""Agent service entrypoints backed by LangGraph orchestration."""
 
-LangChain Nedir?
-----------------
-LangChain, LLM (Large Language Model) uygulamaları geliştirmek için bir framework'tür.
-- Farklı LLM'lerle (OpenAI, Ollama, vb.) kolayca çalışmanızı sağlar
-- Sohbet geçmişi yönetimi yapar
-- Agent'lar oluşturmanızı sağlar (araç kullanan akıllı asistanlar)
+from __future__ import annotations
 
-Bu dosyada ne yapıyoruz?
-------------------------
-1. LiteLLM'e bağlanan bir ChatOpenAI nesnesi oluşturuyoruz
-2. Sohbet geçmişini yöneten bir memory oluşturuyoruz
-3. Basit bir sohbet chain'i kuruyoruz
-4. LangSmith ile tüm LLM çağrılarını trace ediyoruz
-"""
+from typing import Any, Dict, List, Optional, Tuple
 
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-from typing import List, Dict
-import os
 
-# ============================================
-# LangSmith Konfigürasyonu
-# ============================================
-# LangSmith ortam değişkenleri otomatik olarak okunur:
-# - LANGCHAIN_TRACING_V2=true -> tracing aktif
-# - LANGCHAIN_API_KEY -> API anahtarı
-# - LANGCHAIN_PROJECT -> proje adı
-# - LANGCHAIN_ENDPOINT -> API endpoint
-#
-# Bu değişkenler ayarlandığında LangChain otomatik olarak
-# tüm LLM çağrılarını LangSmith'e gönderir.
+from cache import ResponseCache
+from config import settings
+from observability import get_logger
+from orchestrator.engine import OrchestratorGraph
+from tools.adapters import TavilyDirectAdapter
+from tools.registry import ToolRegistry
 
-# ============================================
-# LiteLLM Konfigürasyonu
-# ============================================
-# Tüm gizli bilgiler .env dosyasından okunur
-
-API_KEY = os.getenv("LITELLM_API_KEY", "")
-BASE_URL = os.getenv("LITELLM_BASE_URL", "http://localhost:8023/")
-MODEL_NAME = os.getenv("LITELLM_MODEL_NAME", "ollama/qwen3:0.6b")
+CACHE = ResponseCache()
+LOGGER = get_logger()
 
 
-def create_llm():
-    """
-    LangChain'in ChatOpenAI sınıfını kullanarak LLM bağlantısı oluşturur.
-
-    ChatOpenAI, OpenAI API formatıyla uyumlu herhangi bir servisle çalışır.
-    LiteLLM de OpenAI API formatını desteklediği için bu sınıfı kullanabiliriz.
-
-    Parametreler:
-    - openai_api_key: API anahtarı (LiteLLM için gerekli)
-    - openai_api_base: LiteLLM'in çalıştığı adres
-    - model_name: Kullanılacak model
-    - temperature: Cevapların yaratıcılık seviyesi (0=deterministik, 1=yaratıcı)
-    """
-    llm = ChatOpenAI(
-        openai_api_key=API_KEY,
-        openai_api_base=BASE_URL,
-        model_name=MODEL_NAME,
-        temperature=0.7,  # Dengeli bir yaratıcılık seviyesi
+def _create_llm() -> ChatOpenAI:
+    return ChatOpenAI(
+        openai_api_key=settings.litellm_api_key,
+        openai_api_base=settings.litellm_base_url,
+        model_name=settings.litellm_model_name,
+        temperature=settings.litellm_temperature,
+        request_timeout=settings.litellm_request_timeout,
+        max_retries=settings.litellm_max_retries,
+        max_tokens=settings.litellm_max_tokens,
     )
-    return llm
 
 
-def format_messages_for_langchain(history: List[Dict]) -> List:
-    """
-    Veritabanından gelen mesaj geçmişini LangChain formatına çevirir.
+def _build_registry() -> ToolRegistry:
+    registry = ToolRegistry()
+    tavily_timeout_s = min(max(settings.mcp_tool_timeout_ms / 1000.0, 4.0), 10.0)
+    if settings.tavily_timeout_seconds:
+        tavily_timeout_s = settings.tavily_timeout_seconds
 
-    Veritabanındaki format:
-    {"role": "user", "content": "Merhaba"}
+    tavily_timeout_ms = int(tavily_timeout_s * 1000)
 
-    LangChain formatı:
-    HumanMessage(content="Merhaba")  veya  AIMessage(content="...")
-
-    Bu dönüşüm gerekli çünkü LangChain kendi mesaj sınıflarını kullanır.
-    """
-    messages = []
-
-    for msg in history:
-        if msg["role"] == "user":
-            messages.append(HumanMessage(content=msg["content"]))
-        elif msg["role"] == "assistant":
-            messages.append(AIMessage(content=msg["content"]))
-
-    return messages
-
-
-def get_chat_response(user_message: str, history: List[Dict] = None) -> str:
-    """
-    Kullanıcı mesajına cevap üretir.
-
-    Parametreler:
-    - user_message: Kullanıcının gönderdiği mesaj
-    - history: Önceki mesajların listesi (sohbet bağlamı için)
-
-    Nasıl çalışır:
-    1. LLM bağlantısı oluşturulur
-    2. Geçmiş mesajlar LangChain formatına çevrilir
-    3. Yeni mesaj eklenir
-    4. LLM'den cevap alınır
-
-    Not: history parametresi None ise, bu yeni bir sohbet demektir.
-    """
-    llm = create_llm()
-
-    # Mesaj listesini hazırla
-    messages = []
-
-    # Sistem mesajı ekle (agent'ın nasıl davranacağını belirler)
-    system_prompt = """you are a helpful AI assistant. Provide clear and concise answers."""
-
-    messages.append(SystemMessage(content=system_prompt))
-
-    # Sohbet geçmişini ekle (varsa)
-    if history:
-        messages.extend(format_messages_for_langchain(history))
-
-    # Yeni kullanıcı mesajını ekle
-    messages.append(HumanMessage(content=user_message))
-
-    # LLM'den cevap al
-    response = llm.invoke(messages)
-
-    # AIMessage nesnesinden sadece içeriği al
-    return response.content
+    registry.register(
+        tool_id="tavily_search",
+        adapter=TavilyDirectAdapter(
+            api_key=settings.tavily_api_key,
+            timeout_seconds=tavily_timeout_s,
+            topic=settings.tavily_topic,
+            search_depth=settings.tavily_search_depth,
+            max_results=settings.tavily_max_results,
+        ),
+        enabled=True,
+        priority=10,
+        timeout_ms=tavily_timeout_ms,
+        max_retries=settings.tavily_max_retries,
+        initial_backoff_ms=settings.mcp_tool_initial_backoff_ms,
+    )
+    return registry
 
 
-# Test için
-if __name__ == "__main__":
-    # Basit bir test
-    print("Agent test ediliyor...")
-    print(f"API Key: {API_KEY[:10]}..." if API_KEY else "API Key bulunamadı!")
-    print(f"Base URL: {BASE_URL}")
-    print(f"Model: {MODEL_NAME}")
-    response = get_chat_response("Merhaba, nasılsın?")
-    print(f"Cevap: {response}")
+ORCHESTRATOR = OrchestratorGraph(registry=_build_registry(), llm=_create_llm(), logger=LOGGER)
+
+
+async def get_chat_response_with_cache_info(
+    user_message: str,
+    history: Optional[List[Dict]] = None,
+    session_id: str = "",
+    debug: bool = False,
+) -> Tuple[str, bool, Optional[Dict[str, Any]]]:
+    """Generate response through orchestration graph with cache support."""
+    cached_response = None if debug else CACHE.get(question=user_message)
+    if cached_response:
+        debug_data = (
+            {
+                "selected_tool": None,
+                "retries": 0,
+                "fallback_used": False,
+                "validation_passed": True,
+                "cache_hit": True,
+            }
+            if debug
+            else None
+        )
+        return cached_response, True, debug_data
+
+    state = await ORCHESTRATOR.run(
+        user_message=user_message,
+        history=history or [],
+        session_id=session_id,
+    )
+    response = state.get("final_response") or "I could not generate a response."
+
+    fallback_report = state.get("fallback_report") or {}
+    if not fallback_report.get("used", False):
+        CACHE.set(question=user_message, response=response)
+
+    debug_data = None
+    if debug:
+        debug_data = {
+            "selected_tool": state.get("selected_tool"),
+            "retries": state.get("retry_count", 0),
+            "fallback_used": fallback_report.get("used", False),
+            "validation_passed": state.get("validation_passed", False),
+            "cache_hit": False,
+        }
+
+    return response, False, debug_data
+
+
+def close_external_connections() -> None:
+    """Close pooled connections used by external services."""
+    CACHE.close()

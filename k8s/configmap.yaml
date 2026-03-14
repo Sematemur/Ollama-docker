@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chat-config
+  namespace: chat-system
+  labels:
+    app.kubernetes.io/part-of: chat-system
+data:
+  # LiteLLM / LLM
+  LITELLM_MODEL_NAME: "ollama/qwen2.5:3b"
+  LITELLM_BASE_URL: "http://litellm-service:4000/"
+  LITELLM_REQUEST_TIMEOUT: "45"
+  LITELLM_TEMPERATURE: "0.2"
+  LITELLM_MAX_TOKENS: "2048"
+  LITELLM_MAX_RETRIES: "1"
+
+  # PostgreSQL
+  # DATABASE_URL is constructed in deployment env vars using secret refs
+  POSTGRES_HOST: "postgres-service"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "chatdb"
+  POSTGRES_USER: "chatuser"
+
+  # Redis
+  REDIS_CACHE_TTL_SECONDS: "600"
+  ENABLE_RESPONSE_CACHE: "true"
+  REDIS_MAX_CONNECTIONS: "50"
+  CACHE_SENSITIVE_PATTERNS: "sk-,api_key,password,secret,token,authorization,bearer"
+
+  # Chat / Orchestrator
+  CHAT_HISTORY_MAX_TURNS: "12"
+  ORCHESTRATOR_HISTORY_TURNS: "6"
+  ORCHESTRATOR_TOOL_CONTEXT_MAX_CHARS: "2500"
+
+  # MCP / Tools
+  MCP_ENABLED_TOOLS: "tavily_search"
+  MCP_TOOL_TIMEOUT_MS: "5000"
+  MCP_TOOL_MAX_RETRIES: "1"
+  MCP_TOOL_INITIAL_BACKOFF_MS: "150"
+  TAVILY_TOPIC: "general"
+  TAVILY_SEARCH_DEPTH: "basic"
+  TAVILY_MAX_RESULTS: "3"
+  TAVILY_TIMEOUT_SECONDS: "8"
+  TAVILY_MAX_RETRIES: "1"
+
+  # CORS
+  CORS_ALLOWED_ORIGINS: "*"
+
+  # OpenTelemetry
+  OTEL_SERVICE_NAME: "chat-backend"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://tempo-service:4317"
+  LOKI_PUSH_URL: "http://loki-service:3100/loki/api/v1/push"
+
+  # LangSmith
+  LANGCHAIN_TRACING_V2: "true"
+  LANGCHAIN_PROJECT: "agent-project"
+  LANGCHAIN_ENDPOINT: "https://api.smith.langchain.com"
+
+  # Agent service URL (for API to call Agent)
+  AGENT_SERVICE_URL: "http://agent-service:8001"
+
+  # Frontend
+  VITE_API_URL: "http://localhost:9000"

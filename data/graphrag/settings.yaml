@@ -1,0 +1,71 @@
+completion_models:
+  default:
+    model_provider: openai
+    model: ${GRAPHRAG_CHAT_MODEL}
+    api_base: ${GRAPHRAG_API_BASE}
+    auth_method: api_key
+    api_key: ${GRAPHRAG_API_KEY}
+    retry:
+      type: exponential_backoff
+
+embedding_models:
+  default:
+    model_provider: openai
+    model: ${GRAPHRAG_EMBEDDING_MODEL}
+    api_base: ${GRAPHRAG_API_BASE}
+    auth_method: api_key
+    api_key: ${GRAPHRAG_API_KEY}
+    retry:
+      type: exponential_backoff
+
+input:
+  type: text
+
+input_storage:
+  type: file
+  base_dir: input
+
+output_storage:
+  type: file
+  base_dir: output
+
+cache:
+  type: json
+  storage:
+    type: file
+    base_dir: cache
+
+reporting:
+  type: file
+  base_dir: logs
+
+vector_store:
+  type: lancedb
+  db_uri: output/lancedb
+
+embed_text:
+  embedding_model_id: default
+
+extract_graph:
+  completion_model_id: default
+  prompt: "prompts/extract_graph.txt"
+
+summarize_descriptions:
+  completion_model_id: default
+  prompt: "prompts/summarize_descriptions.txt"
+
+community_reports:
+  completion_model_id: default
+  graph_prompt: "prompts/community_report_graph.txt"
+  text_prompt: "prompts/community_report_text.txt"
+
+local_search:
+  completion_model_id: default
+  embedding_model_id: default
+  prompt: "prompts/local_search_system_prompt.txt"
+
+global_search:
+  completion_model_id: default
+  map_prompt: "prompts/global_search_map_system_prompt.txt"
+  reduce_prompt: "prompts/global_search_reduce_system_prompt.txt"
+  knowledge_prompt: "prompts/global_search_knowledge_system_prompt.txt"

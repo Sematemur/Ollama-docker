@@ -1,146 +1,150 @@
-"""
-DATABASE.PY - PostgreSQL ile Chat Geçmişi Yönetimi
+"""Database helpers for storing and fetching chat history in PostgreSQL."""
 
-PostgreSQL Nedir?
------------------
-PostgreSQL, güçlü ve güvenilir bir açık kaynak veritabanıdır.
-Docker'da ayrı bir container olarak çalışır.
+from __future__ import annotations
 
-Bu dosyada ne yapıyoruz?
-------------------------
-1. PostgreSQL'e bağlanıyoruz (DATABASE_URL environment variable ile)
-2. conversations tablosunu oluşturuyoruz
-3. Mesaj kaydetme ve okuma fonksiyonları yazıyoruz
-"""
+import logging
+import time
+from typing import Dict, List
 
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from datetime import datetime
-from typing import List, Dict
-import os
 
-# Veritabanı bağlantı URL'si (docker-compose.yml'den gelir)
-DATABASE_URL = os.environ.get(
-    "DATABASE_URL",
-    "postgresql://chatuser:chatpass@localhost:5432/chatdb"
-)
+from config import settings
+
+LOGGER = logging.getLogger("chat.database")
+
+_INIT_MAX_RETRIES = 10
+_INIT_RETRY_DELAY = 3
 
 
 def get_connection():
-    """
-    PostgreSQL'e bağlantı oluşturur.
-    RealDictCursor ile sonuçları sözlük olarak alırız.
-    """
-    conn = psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
-    return conn
+    """Create a PostgreSQL connection with dict-like rows."""
+    return psycopg2.connect(settings.database_url, cursor_factory=RealDictCursor)
 
 
 def init_db():
-    """
-    Veritabanını ve tabloyu oluşturur.
+    """Create tables and indexes, retrying until PostgreSQL is reachable."""
+    for attempt in range(1, _INIT_MAX_RETRIES + 1):
+        try:
+            conn = get_connection()
+            try:
+                cursor = conn.cursor()
+                try:
+                    cursor.execute(
+                        """
+                        CREATE TABLE IF NOT EXISTS conversations (
+                            id SERIAL PRIMARY KEY,
+                            session_id TEXT NOT NULL,
+                            role TEXT NOT NULL,
+                            message TEXT NOT NULL,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )
+                        """
+                    )
+                    cursor.execute(
+                        """
+                        CREATE INDEX IF NOT EXISTS idx_session_id ON conversations(session_id)
+                        """
+                    )
+                    conn.commit()
+                finally:
+                    cursor.close()
+            finally:
+                conn.close()
+            LOGGER.info("PostgreSQL database is ready (attempt %d)", attempt)
+            return
+        except (psycopg2.OperationalError, psycopg2.DatabaseError) as exc:
+            LOGGER.warning(
+                "PostgreSQL not ready, retrying in %ds (attempt %d/%d): %s",
+                _INIT_RETRY_DELAY, attempt, _INIT_MAX_RETRIES, exc,
+            )
+            time.sleep(_INIT_RETRY_DELAY)
 
-    Bu fonksiyon uygulama başladığında bir kez çağrılır.
-    "IF NOT EXISTS" sayesinde tablo zaten varsa hata vermez.
-    """
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    # SQL komutu: Tablo oluştur
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS conversations (
-            id SERIAL PRIMARY KEY,
-            session_id TEXT NOT NULL,
-            role TEXT NOT NULL,
-            message TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
-
-    # Index ekle (session_id'ye göre hızlı arama için)
-    cursor.execute("""
-        CREATE INDEX IF NOT EXISTS idx_session_id ON conversations(session_id)
-    """)
-
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    print("PostgreSQL veritabanı hazır!")
+    raise RuntimeError("Could not connect to PostgreSQL after %d attempts" % _INIT_MAX_RETRIES)
 
 
 def save_message(session_id: str, role: str, message: str):
-    """
-    Yeni bir mesajı veritabanına kaydeder.
-
-    Parametreler:
-    - session_id: Sohbet oturumunun ID'si
-    - role: "user" veya "assistant"
-    - message: Mesaj içeriği
-    """
+    """Persist a single chat message."""
     conn = get_connection()
-    cursor = conn.cursor()
+    try:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "INSERT INTO conversations (session_id, role, message) VALUES (%s, %s, %s)",
+                (session_id, role, message),
+            )
+            conn.commit()
+        finally:
+            cursor.close()
+    finally:
+        conn.close()
 
-    cursor.execute(
-        "INSERT INTO conversations (session_id, role, message) VALUES (%s, %s, %s)",
-        (session_id, role, message)
-    )
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+def _rows_to_messages(rows: List[Dict]) -> List[Dict]:
+    return [
+        {
+            "role": row["role"],
+            "content": row["message"],
+            "created_at": str(row["created_at"]) if row["created_at"] else None,
+        }
+        for row in rows
+    ]
 
 
 def get_conversation(session_id: str) -> List[Dict]:
-    """
-    Bir sohbetin tüm mesajlarını getirir.
-
-    Parametreler:
-    - session_id: Hangi sohbetin mesajlarını istiyoruz?
-
-    Dönüş:
-    - Mesajların listesi, her biri {"role": "...", "content": "..."} formatında
-    """
+    """Fetch full history for a given session."""
     conn = get_connection()
-    cursor = conn.cursor()
+    try:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "SELECT role, message, created_at FROM conversations WHERE session_id = %s ORDER BY created_at",
+                (session_id,),
+            )
+            rows = cursor.fetchall()
+        finally:
+            cursor.close()
+    finally:
+        conn.close()
 
-    cursor.execute(
-        "SELECT role, message, created_at FROM conversations WHERE session_id = %s ORDER BY created_at",
-        (session_id,)
-    )
+    return _rows_to_messages(rows)
 
-    rows = cursor.fetchall()
 
-    # Sonuçları LangChain'in beklediği formata çeviriyoruz
-    messages = []
-    for row in rows:
-        messages.append({
-            "role": row["role"],
-            "content": row["message"],
-            "created_at": str(row["created_at"]) if row["created_at"] else None
-        })
+def get_recent_conversation(session_id: str, limit: int = 12) -> List[Dict]:
+    """Fetch only recent messages to keep /chat latency predictable."""
+    safe_limit = max(1, min(int(limit), 100))
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "SELECT role, message, created_at FROM conversations WHERE session_id = %s ORDER BY created_at DESC LIMIT %s",
+                (session_id, safe_limit),
+            )
+            rows = cursor.fetchall()
+        finally:
+            cursor.close()
+    finally:
+        conn.close()
 
-    cursor.close()
-    conn.close()
-    return messages
+    rows.reverse()
+    return _rows_to_messages(rows)
 
 
 def get_all_sessions() -> List[str]:
-    """
-    Tüm benzersiz session ID'lerini getirir.
-    """
+    """List all unique session ids."""
     conn = get_connection()
-    cursor = conn.cursor()
+    try:
+        cursor = conn.cursor()
+        try:
+            cursor.execute("SELECT DISTINCT session_id FROM conversations")
+            rows = cursor.fetchall()
+        finally:
+            cursor.close()
+    finally:
+        conn.close()
+    return [row["session_id"] for row in rows]
 
-    cursor.execute("SELECT DISTINCT session_id FROM conversations")
-    rows = cursor.fetchall()
-    sessions = [row["session_id"] for row in rows]
 
-    cursor.close()
-    conn.close()
-    return sessions
-
-
-# Bu dosya direkt çalıştırılırsa veritabanını oluştur
 if __name__ == "__main__":
     init_db()
-    print("PostgreSQL tablosu başarıyla oluşturuldu!")

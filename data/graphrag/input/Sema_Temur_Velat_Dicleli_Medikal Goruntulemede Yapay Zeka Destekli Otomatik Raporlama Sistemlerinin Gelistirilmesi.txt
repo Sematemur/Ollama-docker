@@ -1,0 +1,902 @@
+TÜBİTAK–2209-A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA 
+PROJELERİ DESTEĞİ PROGRAMI 
+ 
+Başvuru formunun Arial 9 yazı tipinde, her bir konu başlığı altında verilen açıklamalar göz önünde 
+bulundurularak hazırlanması ve ekler hariç toplam 20 sayfayı geçmemesi beklenir (Alt sınır 
+bulunmamaktadır). Değerlendirme araştırma önerisinin özgün değeri, yöntemi, yönetimi ve yaygın etkisi 
+başlıkları üzerinden yapılacaktır. 
+ 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2024 Yılı 
+ 
+1. Dönem Başvurusu
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 2 
+  
+ 
+A. GENEL BİLGİLER 
+ 
+Başvuru Sahibinin Adı Soyadı: Sema TEMUR, Velat DİCLELİ 
+Araştırma Önerisinin Başlığı:  Medikal Görüntülemede Yapay Zekâ Destekli Otomatik Raporlama 
+Sistemlerinin Geliştirilmesi 
+Danışmanın Adı Soyadı: Dr. Öğr. Üyesi Buket TOPTAŞ 
+Araştırmanın Yürütüleceği Kurum/Kuruluş: Bandırma Onyedi Eylül Üniversitesi 
+ 
+ 
+ÖZET 
+ 
+     Türkçe özetin araştırma önerisinin (a) özgün değeri, (b) yöntemi, (c) yönetimi ve (d) yaygın etkisi hakkında bilgileri 
+kapsaması beklenir. Bu bölümün en son yazılması önerilir.  
+ 
+Özet 
+Medikal görüntüleme, hastaların tanı ve tedavi süreçlerinde kritik bir rol oynamaktadır. Radyolojik görüntüler, 
+uzman hekimlerin hastalıkları doğru bir şekilde teşhis etmelerine ve uygun tedavi planları oluşturmalarına olanak 
+tanır. Ancak, bu görüntülerin yorumlanması ve raporlanması zaman alıcı bir süreçtir ve uzmanlık gerektirir. Bu 
+nedenle, otomatik rapor oluşturma sistemlerinin geliştirilmesi hem sağlık hizmetlerinin verimliliğini artırmak hem 
+de hekimlerin üzerindeki yükü hafifletmek açısından büyük önem taşımaktadır. 
+Bu çalışmada, ClinicalBERT ve ClinicalGPT modellerinin önceden eğitilmiş evrişimli sinir ağı  mimarileriyle 
+entegre edilerek medikal görüntüler üzerinden otomatik rapor oluşturma sürecinin geliştirilmesi planlanmaktadır. 
+Projede, radyolojik görüntülerin ve ilgili rapor ların olduğu veri setleri üzerinde çalışılacaktır. Elde edilen veriler, 
+veri ön işleme aşamasında  geçirilecek ve böylece  görüntüler ve metinler modellere uygun hale getirilecektir . 
+ResNet50 ve VGG19 mimarileri kullanılarak temizlenen radyolojik görüntülerden ö zellik çıkarımı yapılacaktır. 
+Çıkarılan özellikler, metin verileriyle birleştirilerek ClinicalBERT ve ClinicalGPT modelleri ile işlenecektir. Eğitim 
+sürecinde modelin performansı izlenecek ve yeni görüntüler üzerinden doğru raporlar üretilmesi sağlanacaktır.  
+Son olarak, elde edilen otomatik raporlar kullanıcı dostu bir web ve mobil arayüz aracılığıyla sunulacaktır.  Bu 
+projenin sonunda ulusal bir makele, uluslararası bir bildiri ve proje ekibinin lisans bitirme tez çalışmalarının 
+tamamlanması yaygın etki oluşturmaktadır. Ayrıca, radyolojik raporların otomatik oluşturulması için yapay zekâ 
+tabanlı mobil ve web arayüzü de sağlık hizmetine sunulacaktır. 
+Anahtar Kelimeler: Medikal Görüntüleme, Otomatik Rapor Oluşturma, ClinicalBERT, ClinicalGPT 
+ 
+ 
+1. ÖZGÜN DEĞER  
+ 
+ 1.1. Konunun Önemi, Araştırma Önerisinin Özgün Değeri ve Araştırma Sorusu/Hipotezi 
+ 
+Araştırma önerisinde ele alınan konunun kapsamı ve sınırları ile önemi literatürün eleştirel bir değerlendirmesinin 
+yanı sıra nitel veya nicel verilerle açıklanır. 
+ 
+Özgün değer yazılırken araştırma önerisinin bilimsel değeri, farklılığı ve yeniliği, hangi eksikliği nasıl gidereceği 
+veya hangi soruna nasıl bir çözüm geliştireceği ve/veya ilgili bilim veya teknoloji alan(lar)ına kavramsal, kuramsal 
+ve/veya metodolojik olarak ne gibi özgün katkılarda bulunacağı literatüre atıf yapılarak açıklanır.  
+  
+Önerilen çalışmanın araştırma sorusu ve varsa hipotezi veya ele aldığı problem(ler)i açık bir şekilde ortaya konulur. 
+ 
+Proje önerisinde ele alınan konunun kapsamı ve sınırları ile önemi: 
+Bu projenin kapsamı, radyologların iş yükünü azaltmak ve daha iyi tıbbi kalite sağlamak için, radyolojik görüntülerine 
+dayalı olarak doğru metin açıklamalarını otomatik olarak üreten bir sistem tasarımı ile ilgilidir. Radyolojik görüntüler, 
+vücudun içyapısını görünür hale getiren ve doktorların hastalıkları teşhis etmesine, izleme yapmasına veya tedavi 
+süreçlerini planlamasına yardımcı olan görüntülerdir. Radyologlar rutin olarak normal ve anormal semptomlarla ilgili 
+tıbbi durumları teşhis etmek için bu görüntüleri yorumlar ve radyolojik raporları oluştururlar.  Radyoloji raporları, tanı 
+bulgularını iletmede ve hasta bakımını yönlendirmede oldukça önemlidir. Bu raporlar, radyolog ve hastayı sevk 
+eden doktor arasında önemli bir iletişim aracıdır ve hasta için önemli bilgileri barındırır. Ancak, radyolojik raporların 
+oluşturulması genel olarak zahmetli ve zaman alıcı bir süreçtir. Raporun doğru yorumlanması, radyoloğun bilgi 
+birikimine, dikkatine ve tecrübesine bağlı olarak hataya açıktır [1]. Radyolojik görüntü raporlarının otomatik olarak 
+üretilmesi ile yanlış tanı ve teşhisler önlenebilir, hasta bakımının kalitesi korunarak radyologların iş yükü azaltılabilir.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 3 
+  
+ 
+Radyolojik raporların otomatik olarak üretilmesi için son zamanlarda popüler bir konu haline gelmiş ve bu alanda 
+yapılan çalışmalar artmıştır[2] [3] [4]. 
+Radyolojik rapor genel olarak iki bölümden oluşmaktadır. İlk bölüm, radyolojik görüntülerde gözlemlenen bulguların 
+ayrıntılı olarak anlatıldığı ve teknik terimlerin kullanıldığı bölümdür.  Bu bölüm hem görüntüleme sonuçlarındaki 
+normal bulguların hem de dikkat çeken anormal bulguların yer aldığı kısımdır. [5]’de de belirtildiği gibi tıbbi görüntü 
+raporlarının özellikle anormal bulgular konusunda yüksek doğrulukla rapor üretebilmesi, algoritmaların 
+performansının artırılmasını gerektirir.  Şekil-1’de bir radyolojik göğüs görüntüsü gösterilmektedir. Bu görüntünün 
+rapor kısmında, sağ üst lobda 11 mm'lik stabil bir nodül, trakeanın orta hattında normal pozisyonu, pnömotoraks ve 
+plevral efüzyon yokluğu, normal kalp boyutu ve omurgada tekrar gözlemlenen sindesmofit (kemik çıkıntısı) 
+belirtilmiştir. Raporun ikinci bölümünde, radyolojik görüntünün saklanma şekli ve dosya adı belirtilmiştir. Şekil 1'de, 
+'Image_path' alanı, .png uzantılı radyolojik görüntünün dijital ortamda saklanan ismini göstermektedir. 
+  
+                                                     Şekil -1 Örnek bir radyoloji raporu [6] 
+Projenin sınırları, öncel ikle veri seti dengesizliği, veri çeşitliliğinin kısıtlı olması ve tıbbi raporların doğrulama 
+zorlukları etrafında şekillenmektedir [7]. Veri setindeki anormal ve normal görüntülerin sayısındaki dengesizlik, 
+modelin tüm senaryolara genelleme yapma kabiliyetini sınırlar. Ayrıca veri çeşitliliğinin azlığı,  medikal 
+görüntülerdeki anormal ve normal görüntülerin ayırt ediciliğinin az olması modelin farklı vakaları öğrenmesini ve 
+başarılı bir şekilde yorumlamasını güçleştirir. Bu durumlar, özellikle karmaşık tıbbi koşullarda modelin performansını 
+olumsuz yönde etkileyebilmektedir. Tıbbi raporların doğruluğu, dikkate alınması gereken önemli bir sınırlayıcı 
+faktördür. Bu raporların oluşturulması, uzman bir doktorun uzun yıllar süren deneyimlerine dayanır. Ayrıca, her bir 
+uzman doktorun radyolojik görüntülere yapacağı yorum ve teşhis farklılık gösterebilir. Eksik ya da hatalı raporların 
+modelin eğitiminde kullanılması, modelin güvenilir sonuçlar üretmesini daha da zorlaştırabilir. Son olarak, modelin 
+eğitimi için gerekli olan bilgi işlem kaynaklarının sınırlı olması, modeli tam kapasiteyle eğitme sürecinde bir diğer 
+zorluk olarak karşımıza çıkmaktadır.  
+Literatürün Eleştirisel İncelenmesi:  
+Literatür incelemeleri, tıbbi görüntü raporlamasının tıbbi görüntüleme araştırmalarında önemli bir alan olduğunu 
+ortaya koymaktadır. Bu süreç, tıbbi görüntü verilerini kullanarak hasta durumu hakkında açıklamalar ve teşhis 
+önerileri içeren yapılandırılmış doğal dil raporları oluşturmayı hedeflemektedir. Tıbbi karar süreçlerin i hızlandırma 
+ve hata payını azaltma gibi potansiyel faydalarından dolayı, bu alan literatürde büyük ilgi görmekte ve aktif olarak 
+araştırılmaktadır. 
+Jing ve arkadaşlarının [8] yaptığı çalışma otomatik medikal görüntü raporu üretme konusunda yapılan 
+çalışmalardan biridir. Önerilen yöntemde, Co-attention mekanizması kullanarak uzun cümleler ve çeşitli başlıklar 
+üretilmeye çalışılmıştır. Görüntülerden özellik çıkarımı için Visual Geometry Group ( VGG19) [9] modeli 
+kullanılmıştır. Uzun cümleler üretmek için Hiyerarşik Uzun Kısa Süreli Bellek ağı (Hierarchical Long Short -Term 
+Memory- LSTM)  [10] kullanılmıştır. Bu çalışma IU X -ray veri setini kullanarak radyoloji görüntülerini paragraf 
+şeklinde üretmede çok iyi sonuçlar gösterse de oluşturulan paragraflarda tekrarlayan cümlelere sahiptir ve paragraf 
+içindeki cümleler birbirleriyle uyum sağlayamamı ştır. BLEU 1 -2-3-4 metriklerinde 0.517,  0.386, 0.306 ve 0.247, 
+METEOR metriğinde 0.217, ROUGE-L metriğinde 0.447 ve CIDEr metriğinde 0.327 başarı değerlerini almışlardır. 
+Diğer bir çalışmada [11] ise Evrişimli Sinir Ağı (Convolutional Neural Network- CNN) ve Hiyerarşik LSTM mimarisini 
+ve aynı zamanda Attention mekanizmasını da kullanarak oluşturulan radyolojik rapordaki cümlelerin aralarında
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 4 
+  
+ 
+uyum olmasını sağlamaya çalışmışlardır. Ortaya çıkan sonuç raporunun eğitim  veri setinden daha farklı cümleler 
+içerdiği görülmüştür. BLEU -1, BLEU-2, BLEU-3, BLEU-4, METEOR ve ROUGE -L metriklerinde sırası ile 0.464 , 
+0.358, 0.270, 0.195, 0.274, 0.366 başarı değerlerini almışlardır. 
+Wang ve arkadaşlarının çalışmasında ise [12] IU X-ray veri seti kullanılmış ve cümle -görüntü gömülü ağ (TieNet) 
+adında bir çoklu seviye Attention içeren bir Convolutional Neural Network- Recurrent Neural Network- Long Short 
+Term Memory (CNN-RNN-LSTM) mimarisi kullan ılmıştır. CNN modeli olarak Res Net50[13] kullanılmıştır. Birden 
+fazla R NN kullanmanın hastalıkların özelliklerinin daha iyi biçimde öğrenilmesini ve kaliteli rapor yazılmasını 
+sağladığı görülmüştür. BLEU 1-2-3-4 metriklerinde sırası ile 0.2860, 0.1597, 0.1038, 0.0736 değerlerini almışlardır. 
+METEOR ve ROUGE-L metiklerinde ise 0.1076 ve 0.2263 başarı değerlerini almışlardır. 
+Diğer bir çalışmada ise Omar ve arkadaşları [14] CDGPT2 (Chest X-ray dataset finely tuned with GPT2) adında 
+otomatik radyoloji görüntülerinden rapor oluşturan bir mimari duyurmuşlardır.  Chest X-ray adlı veri seti çalışmada 
+kullanılmıştır.  Oluşturdukları Chexnet modeli Encoder olarak çalışarak görüntülerden özellik çıkarımını sağlamıştır. 
+Rapor oluşturma kısmında ise Ge nerative Pretrained Transformer-2 (GPT2)[15] modeli kullanılmıştır. Oluşturulan 
+model hiyerarşik olmayan modelleri değerlendirme metriklerinde geçse de Hiyerarşik Tekrarlayan Modelleri 
+[Hierarchical Recurrent Models] geçememiştir.  BLEU-1, BLEU-2, BLEU-3, BLEU-4, METEOR ve ROUGE -L 
+metriklerinde sırası ile 0.387, 0.245, 0.166, 0.111, 0.164 ve 0.289 performans değerlerini almışlardır. 
+Navdeep ve arkadaşları [16] Bidirectional Encoder Rep resentations from Transformer  (BERT) [17] modelleri 
+arasında bir analiz gerçekleştir mişlerdir. BioBERT [18] , ClinicalBioBert [19]ve DistilBERT [20] modelleri radyoloji 
+görüntülerinden rapor elde edilmesi konusunda eğitilip karşılaştırılmıştır. Analizlerin yapılması için pre-trained CNN 
+modeli VGG19 [9] kullanılmıştır. Sonuçlar DistilB ERT[20] modelinin diğerlerine göre rapor üretmekte daha iyi 
+olduğunu göstermiştir. Ayrıca bu çalışmada CNN+ Hiyerarşik LSTM mimarisini DistilBERT[20] ile kullanarak başarı 
+metriklerinde BLEU-1 = 0.772, BLEU-2 = 0.770, BLEU-3 = 0.768, BLEU-4 = 0.767, CIDEr = 0.5563 ve ROUGE -L 
+= 0.897 değerlerini elde etmişlerdir. 
+Diğer bir çalışmad a [21]  radyoloji görüntülerinden rapor oluşturmak için veri seti olarak IU X -ray kullanılmıştır, 
+Encoder olarak CNN modeli olan VGG16 [9] mimarisi kullanılmıştır. Görüntülerin çıkarılan özellikleri bir Attention 
+mekanizmasından geçirilmiş ve Decoder olarak kullanılan LSTM’ e [10]  verilmiştir. Attention kullanmalarındaki 
+sebep ise görsellerdeki ilgi alanına ait olan ve maksimum bilgiye sahip olunabilecek kısımlara odaklanılmasını 
+sağlamaktır. Bu çalışmada birden çok model karşılaştırılmıştır ve kurulan bu mimari diğerlerine göre değerlendirme 
+metriği olan BLEU-4 metriğinde 0.153 başarı performansı göstermiştir. 
+Tsaniya ve arkadaşları [22] Decoder olarak BERT [17], özellik çıkarımında kullanmak için ise CNN ve Multi -Head 
+Attention mimarisini kullandıkları bir otomatik rapor oluşturma çalışması üzerinde çalışmışlardır.  Veri seti olarak IU 
+X-ray kullanılmıştır. Bu yapılan çalışmada oluşturulan modelin değerlendirme metriklerinde çok iyi sonuç aldığını , 
+önceden bu alanda yapılmış olan çalışmalardaki modelleri geri planda bırakabileceği açıklanmıştır. Oluşturulan 
+model BLEU metriğinde 0.412 başarı puanı alarak temel alınan modelden %15 daha iyi sonuç vermiştir. 
+Divya ve arkadaşları [23] IU X-ray ve MIMIC -CXR veri setlerini ayrı ayrı kullanarak rapor oluşturma çalışmas ı 
+gerçekleştirmişlerdir. Görsellerden özellik çıkarımı için SSVE adını verdikleri bir mimari kullan ılmış ve bu 
+görsellerden çıkarılan özellikler veri setinde bulunan örnek raporlarla birlikte Memory Transformer’a  [24]  verilmiştir. 
+Transformer [25] kullanmalarındaki sebep ise geleneksel yöntemlerde sıklıkla kullanılan RNN, LSTM[10], Hiyerarşik 
+LSTM gibi mimarilerin uzun paragraf halinde rapor oluşturmalarında başarısız performans gösterdiklerini iddia 
+etmeleridir. Yaptıkları çalışma sonrasında IU X ray veri seti kullanılarak yapılan çalışma sonucunda   BLEU 1-2-3-
+4 ve METEOR metriklerinde sırasıyla 0.492, 0.321,  0.233, 0.180, 0.203 değerlerini almış lardır. MIMIC-CXR veri 
+seti ile yapılan çalışma sonucunda ise BLEU 1-2-3-4 ve METEOR metriklerinde sırasıyla 0.373, 0.230, 0.161, 0.112, 
+0.162 değerlerini almıştır. 
+Literatürde bu alanda yapılan çalışmalarda CNN, RNN veya LTSM [10]modellerinin birleşimi olan geleneksel 
+mimarilerin yanı sıra Transformer [25] mimarilerini de içermektedir [26]. Ancak bu çalışmaların bazı sınırlamaları 
+bulunmaktadır. İlk olarak, üretilen raporlarda tekrarlayan cümleler ve paragraf içi uyumsuzluklar sıkça karşılaşılan 
+sorunlardandır. Ayrıca, BLEU, METEOR ve ROUGE -L gibi metriklerde elde edilen başarı oranları, mode llerin 
+performansının halen geliştirilmesi gerektiğini göstermektedir. Özellikle tıbbi terimlerin karmaşık yapısına uygun, 
+doğal dil işleme modelleri yetersiz kalmaktadır. Bunun yanı sıra, kullanılan veri setlerinin sınırlılığı, modellerin 
+genelleme yeteneğini olumsuz etkilemektedir. Bu nedenle, daha gelişmiş modeller ve genişletilmiş veri setleri ile 
+bu alanda daha başarılı sonuçlar elde edilmesi beklendiği için bu alan aktif bir çalışma alanıdır. 
+Projenin özgün değeri: 
+Bu çalışmada, doğal dil işleme (Natural Language Processing - NLP) alanında başarı gös termiş iki model, 
+ClinicalBERT [27]  ve ClinicalGPT  [28] , önceden eğitilmiş CNN modelleri ile entegre edilerek tıbbi görüntüler
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 5 
+  
+ 
+üzerinden otomatik rapor oluşturulması hedeflenmektedir. Çalışma kapsamında, ClinicalBERT ve ClinicalGPT 
+modellerinin performansları kapsamlı bir biçimde değerlendirilecektir. Bu değerlendirmede doğruluk, anlamsallık ve 
+kapsayıcılık gibi performans metrikleri dikkate alınarak karş ılaştırma yapılacaktır. Elde edilen sonuçlar 
+doğrultusunda hem teknik hem de pratik uygulanabilirlik açısından en yüksek başarıyı gösteren model 
+belirlenecektir. Seçilen model, kullanıcı dostu bir web ve mobil arayüz geliştirilerek, sağlık hizmetlerinde yapay zekâ 
+tabanlı tıbbi raporlama süreçlerine katkı sağlamak  üzere kullanılacaktır. Bu sayede, klinik uygulamalarda yapay 
+zekâ destekli raporlama süreçlerinin hızlandırılması ve kolaylaştırılması amaçlanmaktadır. 
+ 
+ 
+1.2. Amaç ve Hedefler 
+Araştırma önerisinin amacı ve hedefleri açık, ölçülebilir, gerçekçi ve araştırma süresince ulaşılabilir nitelikte olacak 
+şekilde yazılır. 
+ 
+Amaçlar: 
+1. ClinicalBERT[27] ve ClinicalGPT'nin [28] mimarilerini kullanarak tıbbi görüntüler üzerinde otomatik rapor 
+oluşturma sürecini geliştirmek. 
+2. Farklı yapay zekâ ve makine öğrenmesi modellerinin tıbbi raporlama süreçlerinde uygulanabilirliğini 
+incelemek. 
+3. Klinik uygulamalarda yapay zekâ destekli çözümlerle sağlık hizmetlerinde verimliliği artırmak. 
+Hedefler: 
+1. ClinicalBERT[27] ve ClinicalGPT[28] modellerinin, önceden eğitilmiş CNN ile entegre edilmesi. 
+2. Modellerin doğruluk, anlamsallık, kapsayıcılık gibi performans metrikleri ile karşılaştırılması. 
+3. Hem teknik performans hem de pratik uygulama açısından en yüksek başarıyı sağlayan modelin 
+belirlenmesi. 
+4. Seçilen modelin kullanıcı dostu bir web ve mobil arayüz ile desteklenmesi. 
+5. Yapay zekâ destekli tıbbi raporlama süreçlerinin sağlık hizmetlerinde kolaylaştırılması ve hızlandırılması. 
+ 
+2. YÖNTEM 
+ 
+Araştırma önerisinde uygulanacak yöntem ve araştırma teknikleri (veri toplama araçları ve analiz yöntemleri dahil) 
+ilgili literatüre atıf yapılarak açıklanır. Yöntem ve tekniklerin çalışmada öngörülen amaç ve hedeflere ulaşmaya 
+elverişli olduğu ortaya konulur.  
+ 
+Yöntem bölümünün araştırmanın tasarımını, bağımlı ve bağımsız değişkenleri ve istatistiksel yöntemleri kapsaması 
+gerekir. Araştırma önerisinde herhangi bir ön çalışma veya fizibilite yapıldıysa bunların sunulması beklenir. 
+Araştırma önerisinde sunulan yöntemlerin iş paketleri ile ilişkilendirilmesi gerekir.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 6 
+  
+ 
+Bu projede, radyolojik göğüs görüntülerinden otomatik rapor üretimi amacıyla görüntü işleme ve NLP teknikleri 
+kullanılacaktır. Veri toplama süreci, radyolojik görüntülerin ve bu görüntülere ait raporların elde edilmesi, etik 
+onaylı bir veri seti üzerinden işlenmesini kapsar. Çalışmada kullanılacak temel yöntemler, ilgili literatüre dayalı 
+olarak beş aşamadan oluşmaktadır. Bu aşamalar şöyledir: 
+İlk aşama , veri önişleme aşamasıdır. Bu aşamada  hem radyolojik görüntülerin hem de bu görüntülere ait 
+raporların temizlenmesi ve düzeltilmesi yapılmaktadır. Görüntülerdeki boyut ayarlama,  raporlarda bulunan 
+anlamsal tutarlılık ve dilbilgisel doğruluk sağlanır. Bu süreç, modelin daha tutarlı ve doğru sonuçlar üretmesini 
+amaçlamaktadır. 
+İkinci aşama, özellik çıkarım aşamasıdır. Bu aşamada, ön işlenmiş radyolojik görüntüler, önceden eğitilmiş 
+transfer öğrenme modelleri (örneğin, ResNet, VGG19 gibi CNN tabanlı mimariler) ile işlenir. Bu süreç 
+sonucunda, görüntülerdeki önemli ve anlamlı özellikleri temsil eden bir özellik matrisi elde edilmektedir. 
+Üçüncü aşama, veri entegrasyonu ve model girişi aşamasıdır. Bu aşamada, ilk aşamada önişlenmiş radyolojik 
+rapor verileri ile ikinci aşamada elde edilen özellik vektörleri, Transformer [25]mimarisine girdi olarak verilir. 
+Burada amaç, metin ve görüntü verilerini birleştirerek, rapor oluşturma sürecinde daha güçlü bir temsil elde 
+etmektir. Transformer [25] modeli, bu iki farklı veri kaynağını kullanarak daha doğru ve detaylı tıbbi raporlar 
+üretmeyi hedefler. 
+Dördüncü aşama, Transformer [25] mimarisinin eğitilmesi ve raporlama aşamasıdır. Bu aşamada, model, geniş 
+çaplı medikal verilerle eğitilerek hem metinsel hem de görsel girdilere dayalı raporlar üretir. Eğitim süreci 
+boyunca modelin doğruluğu, kaybı ve diğer performans metrikleri izlenir, böylece raporların güvenilirliği artırılır. 
+Son aşama, sonuçların sunulma aşamasıdır.  Elde edilen raporlar, kullanıcı dostu bir web arayüzü ve mobil 
+uygulama aracılığıyla hastalara sunulur. Bu aşamada, hastaların hızlı ve etkili bir şekilde tıbbi raporları 
+görüntüleyebilmesi ve kullanabilmesi amaçlanmaktadır.  Bu aşamalara ait detaylı bilgiler bu bölüm altında alt 
+başlıklar olarak verilmiş ve önerilen yöntemin genel şeması Şekil-2’de sunulmuştur. Tüm aşamaların detayları 
+bu bölümde alt başlıklar olarak verilmiştir. 
+ 
+                                                            Şekil – 2 Önerilen yöntemin genel şeması  
+Veri Ön İşleme 
+Ön işlem, radyolojik görüntülerin yeniden boyutlandırılması ve medikal raporların anlamsal doğruluğunun 
+arttırılması için uygulanan bir dizi adımı içerir. Bu aşamada, radyolojik görüntülerden fazlalık veriler 
+temizlenirken, raporlardaki yazım hataları ve e ksik bilgilerin düzenlenmesi sağlanır. Yöntemin bu aşaması iki
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 7 
+  
+ 
+ayrı adımdan oluşmaktadır. Bu adımlar sırasıyla radyolojik görüntülerin işlenmesi ve metin ön işleme 
+aşamalarıdır. 
+Radyolojik görüntülerin işlenmesi: Raporu bulunmayan radyolojik görüntülerin veri setinden 
+çıkarılması, analiz sürecinin doğruluğunu artırmak için önemli bir adımdır. Bu işlem, modelin yalnızca 
+anlamlı ve tamamlayıcı bilgiye sahip görüntülerle çalışmasını sağlayarak, gürültü oluşturan veya eksik 
+verilerden kaynaklanan hataları azaltır. Ardından, görüntülerin boyutlarının tutarlı hale getirilmesi, modelin 
+her görüntüyü aynı formatta işleyebilmesi için kritik bir adımdır. Bu bağlamda, her bir radyolojik görüntünün 
+boyutu CNN mimarilerinin girdi boyutuna göre y eniden biçimlendirilir. Boyutlandırma işlemi, görüntülerin 
+yüksek çözünürlüğünü ve ayrıntılarını koruyarak gerçekleştirilir; böylece model  hem detay kaybı 
+yaşamadan hem de sabit boyutta verilerle çalışarak daha iyi sonuçlar üretir. Bu standart boyutlandırma, 
+ile model her görüntüyü tutarlı bir giriş verisi olarak kabul eder ve eğitim süreci daha verimli hale gelir. 
+Metin ön işleme : Radyolojik raporların doğal dil işleme modellerine uygun hale getirilmesi için 
+gerçekleştirilen bir dizi sistematik adımdan oluşur. Bu sürecin ilk aşamasında, anlam taşımayan ya da veri 
+gürültüsüne sebep olan semboller, özel karakterler ve gereksiz noktalam a işaretleri metinden temizlenir. 
+Bu işlem, modelin yalnızca anlamlı bilgiye odaklanmasını sağlar. 
+Ardından, büyük harfler küçük harflere dönüştürülerek, harf farklılıklarının modeller üzerinde gereksiz bir 
+karmaşaya neden olması engellenir. Bu dönüşümü, anlamsal olarak sınırlı katkı sağlayan sayıların ve 
+fazlalık oluşturan verilerin temizlenmesi takip eder. Ayrıca, dilde yaygın olarak kullanılan ancak anlam 
+açısından sınırlı bilgi sunan durdurma kelimeleri (stopwords) metinden ayıklanır. Bu adım, modelin metin 
+içindeki anlamlı bilgilere daha iyi odaklanmasını sağlar. 
+Metin ön işlemenin bir diğer önemli bileşeni, kelimelerin köklerine indirgenmesi (stemming) veya çekim 
+eklerinden arındırılması (lemmatization) sürecidir. Bu sayede, aynı kökten türeyen ancak farklı biçimlerde 
+çekimlenmiş kelimeler tek bir forma dönüştürülür. Örneğin, "lungs" (akciğerler) kelimesinin "lung" (akciğer) 
+formuna indirgenmesi, modelin varyasyonları daha iyi anlamlandırmasına olanak tanır. 
+Bu işlemler tamamlandıktan sonra, metin tokenizasyon adı verilen bir işlemle kelime birimlerine ayrılır. 
+Böylece metin, model tarafından işlenebilecek anlamlı kelime gruplarına bölünmüş olur. Son olarak, her 
+bir kelime, belirli bir kelime dağarcığına (voca bulary) göre atanmış benzersiz bir kimlik (ID) ile eşleştirilir. 
+Bu aşama, metinleri modelin sayısal olarak işleyebilmesini sağlayarak, doğal dil işleme sürecinin tutarlı ve 
+verimli bir şekilde ilerlemesine katkıda bulunur. 
+Son aşamada ise, metinlerin uzunluklarını sabitlemek için kısa metinlere padding (doldurma) uygulanır. 
+Padding işlemi, daha kısa metinlerin standart uzunluğa ulaşması için eklenen 0 değeriyle gerçekleştirilir. 
+Bu adım, özellikle Transformer [25]modelleri (örneğin, GPT -2, BERT) gibi modellerin metinleri eşit 
+uzunlukta veriler üzerinden analiz etmesini sağlar. Böylelikle, radyolojik raporlar hem doğruluk hem de 
+tutarlılık açısından daha başarılı ve güvenilir sonuçlar üretecek şekilde işlenmiş olur. 
+Bu adımlar, metni daha yalın ve işlenebilir hale getirir ve modelin anlamlı özelliklere odaklanmasını 
+kolaylaştırır. Metin ön işleme sürecine ait işlemler Şekil-3’de görsel olarak sunulmuştur.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 8 
+  
+ 
+The heart size and 
+pulmonary vascularity 
+appear within normal limits.
+A large hiatal hernia is noted.
+The lungs are free of focal 
+airspace disease.
+the heart size and pulmonary 
+vascularity appear within 
+normal limits
+a large hiatal hernia is noted
+the lungs are free of focal 
+airspace disease
+ ['heart', 'size', 
+'pulmonary', 'vascularity', 
+'appear', 'within', 
+'normal', 'limit', 'large', 
+'hiatal', 'hernia', 'noted', 
+'lung', 'free', 'focal', 
+'airspace', 'disease' ]
+ ['the', 'heart', 'size', 'and', 
+'pulmonary', 'vascularity', 
+'appear', 'within', 
+'normal', 'limits', 'a', 
+'large', 'hiatal', 'hernia', 
+'is', 'noted', 'the', 'lungs', 
+'are', 'free', 'of', 'focal', 
+'airspace', 'disease']
+[[50256, 11490, 2546, 45105, 39495, 414, 1656, 
+1666, 3487, 4179, 4585, 1588, 529, 5375, 82, 607, 
+18142,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+Metindeki Tüm Harflerin Küçük Harfe 
+Çevrilmesi, Noktalama İşaretlerinin, 
+Sayıların ve Sembollerin Kaldırılması
+Kelime 
+Birimlerine 
+Ayırma
+Duraksama Kelimelerinin ve 
+Çekim Eklerinin Kaldırılması
+Kelimelere Benzersiz ID 
+değeri ve Boşluklara 0 
+Atanması: 
+ 
+Şekil -3 Metin ön işleme akış diyagramı 
+ 
+Önceden Eğitilmiş CNN Modelleri ile Özellik Çıkarımı: 
+Radyolojik görüntülerden anlamlı özellikler çıkarmak amacıyla, önceden eğitilmiş  CNN mimarileri 
+kullanılacaktır. Bu çalışmada, literatürde özellik çıkarımında başarı elde etmiş olan iki ResNet ve VGG16 
+mimarilerinin kullanılması planlanmıştır. Bu mimariler, özellik çıkarma ve  otomatik rapor oluşturma 
+çalışmalarında gösterdikleri üstün performanstan [26] dolayı bu proje çalışmasında da tercih edilmiştir. ResNet 
+mimarisi [13] 2015 yılında CNN mimarisi kategorisinde hata oranı en düşük olarak çıkan ve birinci olan bir 
+mimari iken, VGG16 [9]  mimarisi ise 2014 yılında CNN mimarisi alanında hata oranının düşüklüğü ile ikinci 
+olan bir mimaridir [29].  
+(a)
+(b)
+1
+4
+0
+1
+2
+2
+0
+1
+1
+Düzleştirme
+1
+1
+0
+4
+2
+1
+0
+2
+1
+ 
+                                                          Şekil -4 Düzleştirme katmanı 
+Önceden eğitilmiş CNN mimarilerinden çıkarılan özellikler, CNN mimarisinin düzleştirme katmanından elde 
+edilir.  Bu süreç Şekil 4’te [30], görsel olarak sunulmuştur. Bu şekilde , derin öğrenme mimarisinin havuzlama 
+katmanından gelen bilgi, sinir ağına giriş olarak verilmeden önce vektör haline getirilir. Bu işleme düzleştirme 
+adı verilir.  Şekil 4 (a)’da önceki katmandan gelen özellik matrisi bulunmaktadır. Şekil 4 (b)’de ise bu matrisin
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 9 
+  
+ 
+vektör olarak temsil edilmesi gösterilmiştir.  Düzleştirme işlemi, elde edilen özelliklerin Transformer[25] 
+modelinin Decoder kısmına metin ile birlikte girdi olarak hazırlanmasına olanak tanır. Bu yöntemle, evrişimsel 
+katmanlardan çıkarılan karmaşık görsel özellikler m etin verisiyle birleştirilerek  daha etkin bir şekilde 
+işlenebilmektedir. Böylece, hem görüntü hem de metin verilerinin entegrasyonu ile modelin genel performansı 
+artırmaktadır.  
+Veri Entegrasyonu ve Transformer Modelleri: Radyolojik görüntülerden çıkarılan özelliklerin ön işleme tabi 
+tutulmuş metinlerle birleştirilmesi, tıbbi rapor üretiminde daha etkili sonuçlar elde etmek amacıyla kritik bir adım 
+olarak öne çıkmaktadır. Radyolojik görüntü özellikleri ve radyolojik rapor metinlerinin birleştirilmesi , tıbbi 
+raporların oluşturulmasında daha derinlemesine analiz yapılmasına ve anlam çıkarma kapasitesinin artmasına 
+olanak tanır. Bu birleşme sürecinde, transformer tabanlı modellerden, ClinicalBERT [27] ve ClinicalGPT [28] 
+modeli proje kapsamında kullanılması planlanmaktadır.  
+ClinicalBERT [27] model, BERT [17] modelinden farklı olarak klinik metin ile eğitilmiştir.  Bu modele ihtiyaç 
+duyulmasının sebebi tam olarak medikal bilgiler ile eğitilmiş model ile hastaların hastaneye geri yatış 
+durumlarını tahmin etmek içindir [27] . ClinicalBERT [27] , çeşitli hastalıklara ilişkin 1.2 milyar sözcükten eğitilen 
+tıbbi metinlerden bilgi çıkarma ve metin üretimi gibi önemli görevlerde etkili sonuçlar elde etmektedir [30].  
+ClinicalGPT [28] ise, klinik vakalar için optimize edilmiş ve tasarlanmış ileri düzey bir transformer modelidir. Bu 
+model, tıbbi kayıtlar, uzmanlık alanına özgü bilgiler ve çok aşamalı danışma diyalogları gibi çeşitli tıbbi veri 
+setleri üzerinde dikkatlice ince ayar yapılarak  geliştirilmiştir. ClinicalGPT'nin amacı, sağlık hizmetlerinde bilgi 
+desteği sağlamak ve klinik tabanlı metin üretimi yapmaktır [28]. 
+Bu kapsamda, radyolojik görüntülerden çıkarılan özelliklerin ön işleme tabi tutulmuş metinlerle birleştirilmesi, 
+ClinicalBERT [27] ve ClinicalGPT [28] gibi Transformer [25] tabanlı modellerin etkili bir şekilde kullanılmasını 
+sağlamakta ve tıbbi veri işleme süreçlerinin verimliliğini artırmaktadır.  
+Eğitim ve Tahmin Aşaması: Modelin eğitim süreci, radyolojik görüntülerin analiz edilmesinde kritik bir öneme 
+sahiptir. Eğitim aşamasında, öncelikle radyolojik görüntülerden çıkarılan özellikler önişleme uygulanmış metin 
+raporları ile birleştirilir. Bu birleşik veri seti, ClinicalBERT [27] ve ClinicalGPT [28] gibi Transformer [25] tabanlı 
+modellerin eğitimi için kullanılır. Model, tıbbi terminolojiyi ve dil yapılarını anlamada derin öğrenme 
+tekniklerinden yararlanarak görüntü verilerinden bilgi çıkarma ve metin üretme yeteneklerini geliştirir.  
+Modelin eğitim süreci tamamlandıktan sonra, yeni bir radyolojik görüntü verildiğinde tahmin işlemi aşağıdaki 
+adımları izleyerek gerçekleştirilir:  
+• İlk olarak, yeni görüntü, ResNet50  [13] veya VGG19  [9] gibi CNN modelleri kullanılarak işlenir. Bu 
+işlem, görüntüdeki kritik görsel özelliklerin çıkarılmasını sağlar. CNN modelleri, katmanlar arasında 
+hiyerarşik bir yapı ile çalışarak görüntülerdeki belirgin desenleri ve anomalileri tanımlamada yüksek 
+başarı gösterir.  
+• Elde edilen görsel özellikler, daha sonra ClinicalGPT  [28] veya ClinicalBERT [27] modellerine iletilir. 
+Bu aşamada, görsel verilerden elde edilen bilgiler kullanılarak görüntüde tespit edilen anomalilere 
+uygun tıbbi rapor metni üretilir. 
+Değerlendirme Aşaması: Metin üretiminde, oluşturulan metinlerin kalitesini ve doğruluğunu ölçmek için çeşitli 
+değerlendirme metrikleri kullanılmaktadır. Bu projede kullanılması planlanan değerlendirme metrikleri  BLEU, 
+METEOR, CIDEr ve ROUGE-L’dir. 
+Bilingual Evaluation Understudy (BLEU) [31]  makine çevirisinin başarısını ölçmek için oluşturulmuştur. Ortaya 
+çıkan tahmini rapor sonucu dizisi ile referans dizi arasındaki yazışmayı ölçer. BLEU değeri ne kadar yüksekse 
+referans dizisine o kadar yaklaştığı anlamına gelir. BLEU n -gram (n kelimelik alt diziler) için kesinlik değeri 
+ölçer ve aşırı kısa cümlelere BP adında bir katsayı cezası uygula r. Aşağıdaki matematiksel ifadede  BLEU 
+metriğinin hesaplanması gösterilmiştir. 
+            pn =  
+Number of n−grams in candidate that match reference 
+Total number ofn−grams in candidate                   (1) 
+                        𝐵𝑃 = {
+1, 𝑖𝑓 𝑐 > 𝑟
+𝑒(1−𝑟
+𝑐, 𝑖𝑓 𝑐 ≤ 𝑟
+  ,      BLEU = 𝐵𝑃. exp(∑ 𝑤𝑛 log𝑝𝑛)𝑁
+1          (2) 
+ 
+Denklem (1)’de pn, n kelimeden oluşan alt diziler için kesinlik değerini (precision) hesaplar. Denklem (2)’de BP 
+aşırı kısa cümleler için bir ceza katsayısıdır. c parametresi aday dizilerin uzunluğu, r parametresi referans 
+dizilerin uzunluğudur. 𝑤𝑛 n-gramlar için bir ağırlığı temsil etmektedir.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 10 
+  
+ 
+  
+Metric for Evaluation of Translation with Explicit Ordering (METEOR) [32] insan ve makine tarafından 
+oluşturulmuş yazıların aralarındaki ilişkiyi cümle bazında değerlendirmek için geliştirilmiştir.  Kesinlik ve 
+duyarlılık değerlerinin harmonik ortalamasını ( 𝐹𝑚𝑒𝑎𝑛) kullanarak hesaplama yap ılır[33].Ayrıca hesaplamada 
+aday dizilerde kötü kelime sıralaması olduğunda uygulanan bir penaltı cezası da vardır. Aşağıdaki 
+matematiksel ifadede METEOR metriğinin hesaplanması gösterilmiştir. 
+ 
+ 
+                           𝑃 =
+m
+length of candidate , 𝑅 =
+𝑚
+𝑙𝑒𝑛𝑔𝑡ℎ 𝑜𝑓 𝑟𝑒𝑓𝑒𝑟𝑒𝑛𝑐𝑒                (3) 
+ 
+                                 𝐹𝑚𝑒𝑎𝑛 =
+10𝑃𝑅
+𝑅+9𝑃                                                                (4) 
+ 
+                          𝑃𝑒𝑛 = 0.5 .
+#chunks
+𝑚                                                          (5) 
+ 
+                           METEOR =   𝐹𝑚𝑒𝑎𝑛 . (1 − 𝑃𝑒𝑛)                                      (6) 
+ 
+  
+Denklem (3)’de öncelikle kesinlik (P) ve duyarlılık (R) değerleri hesaplanır. m değeri referans dizi ile aday dizi 
+arasındaki kelime eşleşme sayısıdır.  Denklem (4)’de kesinlik ve duyarlılık değerleri kullanılarak harmonik 
+ortalama hesaplanır. Denklem (5)’de Pen parametresi hesaplanmıştır. Pen parametresi bir ceza katsayısıdır. 
+Bu ceza katsayısı zayıf kelime sırasına sahip olan aday dizilere uygulanır. #chunks parametresi referans dizi 
+ile aday dizi arasındaki aynı sırada eşleşmiş kelime gruplarının sayısıdır.                                               
+Consensus-based Image Description Evaluation (CIDEr ) [34] resim açıklaması için geliştirilmiştir.  Bu metrik 
+frekans-ters belge frekansı (TF -IDF) kullanarak üretilmiş açıklama ile referans açıklama arasındaki kosinüs 
+benzerliğini ölçer.  Yüksek CIDEr değeri önemli kelimelerin kapsandığını gösterir.  Aşağıdaki matematiksel 
+ifadede CIDEr metriğinin hesaplanması gösterilmiştir. 
+ 
+TFij =
+Countij
+∑ k Countik
+ ,          IDFi = log
+N
+∑ j  min (1 ,Countij)               (7) 
+ 
+TF −   IDFij =  TFij . IDFi                                                   (8) 
+ 
+CIDErn(c, R) =
+1
+|R| ∑ S(υc,n , υr,n)rϵR                                    (9) 
+ 
+CIDEr(c, R) =
+1
+N ∑ wn.N
+n=1 CIDErn(c, R)                             (10) 
+ 
+Denklem (7)’deki  𝐶𝑜𝑢𝑛𝑡𝑖𝑗, j açıklamasındaki i n-gram’ının sayısıdır. ∑ 𝑘 𝐶𝑜𝑢𝑛𝑡𝑖𝑘 , j açıklamasındaki tüm n -
+gram’ların toplam sayısıdır. N, referans açıklamanın tamamının sayısıdır. ∑ 𝑘 𝐶𝑜𝑢𝑛𝑡𝑖𝑘  , referans açıklamanın 
+kaç adet i n-gram içerdiğini belirtir.  
+Denklem (8)’de  𝑇𝐹 −   𝐼𝐷𝐹𝑖𝑗, j açıklamasında i n-gram için ağırlık  hesaplaması yap ılır. Bir 𝜐𝑗,𝑛 vektörü n 
+uzunluğundaki n-gramlar ve j açıklaması ile oluşturulur.  
+Denklem (9)’da  𝐶𝐼𝐷𝐸𝑟𝑛 , n uzunluğundaki n -gramlar için referans ve aday açıklama nın arasındaki kosinüs 
+benzerliğinin tüm referans açıklama lar üzerindeki ortalamasını hesaplar. R referans açıklamaların bir 
+kümesidir. |R| referans açıklamaların sayısın ı, S kosinüs benzerl iğini, 𝜐𝑐,𝑛  ve 𝜐𝑟,𝑛  aday ve referans 
+açıklamaların vektörlerini temsil eder.  
+Denklem (10)’da CIDEr  değeri, farklı n-gram uzunlukları için  CIDErn değerlerinin ağırlıklı ortalamasıdır. 
+     
+Recall-Oriented Understudy for Gisting Evaluation - Longest Common Subsequence (ROUGE-L) [35]  metriği 
+otomatik özetleme için geliştirilmiştir. Referans dizi ile aday dizi arasındaki en uzun ortak alt diziyi ölçer. Bu 
+metrik değerinin yüksek olması iyi sonuç alındığının göstergesidir. Hesaplamada kesinlik ve duyarlılık kullanılır. 
+Aşağıdaki matematiksel ifadede ROUGE-L metriğinin hesaplanması gösterilmiştir. 
+ 
+                                            P =
+LCS(X,Y)
+length of candidate , R =  
+LCS(X,Y)
+length of reference                 (11) 
+ 
+                                            ROUGE − L =
+(1+β2)PR
+R+β2P                                                  (12) 
+   
+Denklem (11)’de kesinlik (P) ve duyarlılık ( R) değerleri hesaplanır.  𝐿𝐶𝑆(𝑋, 𝑌) , X ve Y değerlerinin en uzun
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 11 
+  
+ 
+ortak küme uzunluğunu belirtir.  𝛽 parametresi, kesinlik ve duyarlılık arasındaki önemi belirleyen bir 
+hiperparametredir. 
+ 
+Web ve Mobil Uygulama Entegrasyonu: Bu proje, radyolojik görüntülerin işlenmesi ve tıbbi raporların 
+otomatik üretim sürecinin optimize edilmesini amaçlamaktadır. Proje kapsamında, kullanıcıların radyolojik 
+görüntüleri yükleyebileceği, bu görüntülerden elde edilen bulgulara erişim sağlayabileceği ve detaylı raporları 
+inceleyebileceği bir sistem geliştirilir . Projenin temel bileşenleri arasında arka uç (backend) geliştirme, model 
+servisleri ve mobil ile web tabanlı uygulamalar yer alır. Bu bileşenlerin entegrasyonu yoluyla kullanıcı deneyimi 
+iyileştirilmekte; böylece tıbbi süreçlerin daha verimli ve etkili bir şekilde yönetilmesi hedeflenmektedir. 
+Projenin arka uç (backend) kısmı, FastAPI, Python tip ipuçlarını temel alan modern ve esnek bir API oluşturma 
+web çerçevesidir [36]. Geliştirilmesi planlanan API, kullanıcıların sisteme radyolojik görüntüleri yüklemelerine, 
+bu görüntülerden elde edilen sonuçları almalarına ve raporları görün tülemelerine olanak tanı r. Radyolojik 
+görüntülerden rapor üretimi yapan derin öğrenme modeli, FastAPI [36]üzerinden RESTful API olarak sunulur. 
+API, kullanıcıların işlemlerinin standart bir formatta gerçekleştirilmesini sağlamak amacıyla, JSON (JavaScript 
+Object Notation) formatında üretilen rapor metnini mobil veya web arayüzüne aktarır. 
+Kullanıcı arayüzü açısından hem mobil hem de web uygulamaları geliştirilmesi planlanmaktadır . Mobil 
+uygulama geliştirme sürecind e Flutter çerçevesi kullanıl ır, Flutter çok platformlu IOS ve Android için mobil 
+uygulamalar geliştirmeye yarayan açık kaynaklı bir yazılımdır [37]. Kullanıcılar, iOS ve Android platformları 
+üzerinden sisteme erişim sağlayabilir . Bu uygulama, kullanıcıların radyolojik görüntüleri yüklemesini ve ilgili 
+raporların incelenmesini kolaylaştırarak, tıbbi sürecin daha erişilebilir ve kullanıcı dostu hale gelmesine katkı  
+sağlar. 
+Web arayüzünün geliştirilmesinde React  framework'ü tercih edilmektedir . React, dinamik kullanıcı arayüzleri 
+ve tasarımları oluşturmak amacıyla kullanılan bileşen tabanlı, açık kaynaklı bir yazılımdır [39]. Bu web sitesi, 
+kullanıcıların radyolojik görüntüleri yüklemesine ve sonuç raporlarını görüntülemesine olanak sağlayacak 
+işlevsellik sunmayı amaçlar.Bu yapı hem mobil hem de web platformlarında kullanıcıların radyolojik görüntüleri 
+etkin bir şekilde yönetmelerini ve analiz sonuçlarına hızlı erişim sağlamalarını hedeflemektedir. 
+Bu araştırma projesi, derin öğrenme, görüntü işleme ve doğal dil işleme yöntemlerinin entegre bir biçimde 
+kullanılması yoluyla, radyolojik görüntülerden doğru ve anlamlı raporlar üretilmesini amaçlamaktadır. Kullanılan 
+tüm yöntemlerin, proje hedeflerine ulaşmadaki uygunluğu literatür ve önceki çalışmalarla desteklenmiştir.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 12 
+  
+ 
+3  PROJE YÖNETİMİ  
+ 
+3.1 İş- Zaman Çizelgesi 
+ 
+Araştırma önerisinde yer alacak başlıca iş paketleri ve hedefleri, her bir iş paketinin hangi sürede gerçekleştirileceği, baş arı ölçütü ve araştırmanın başarısına katkısı “İş -
+Zaman Çizelgesi” doldurularak verilir. Literatür taraması, gelişme ve sonuç raporu hazırlama aşamaları, araştırma sonuçlarının paylaşımı, makale yazımı ve malzeme alımı 
+ayrı birer iş paketi olarak gösterilmemelidir. 
+Başarı ölçütü olarak her bir iş paketinin hangi kriterleri sağladığında başarılı sayılacağı açıklanır. Başarı ölçütü, ölçüleb ilir ve izlenebilir nitelikte olacak şekilde nicel veya 
+nitel ölçütlerle (ifade, sayı, yüzde, vb.) belirtilir. 
+ 
+ 
+İŞ-ZAMAN ÇİZELGESİ (*) 
+         
+İP 
+No İş Paketlerinin Adı ve Hedefleri Kim(ler) Tarafından 
+Gerçekleştirileceği 
+Zaman Aralığı 
+(..-.. Ay) Başarı Ölçütü ve Projenin Başarısına Katkısı  
+1 Veri setinde ön işlem yapılması  Proje Yürütücüsü 1 Ay 
+Çalışmada kullanılacak olan veri seti nde görsellerin 
+boyutu düzenlenecek ve metinler ön işlemden 
+geçirilecektir. %20 
+2 CNN modelleri ile görüntülerden 
+özellik çıkarımının yapılması Proje Ekibi 2 Ay 
+LLM modelini eğitmek için  VGG19 ve Res Net50 
+mimarileri kullanılarak  görsellerden özellik çıkarımı 
+yapılacaktır. %20 
+3 LLM modellerini kullanarak radyoloji 
+raporlarının oluşturulması Proje Ekibi 2 Ay 
+Radyoloji görüntülerinden çıkarılan özellikler ve veri 
+setindeki metin raporları ile ClinicalGPT ve ClinicalBERT 
+modellerinin eğitimi gerçekleştirilecek ve rapor üretmeleri 
+sağlanacaktır. %50 
+4 
+Eğitilen modellerin başarı 
+performanslarının karşılaştırılması ve 
+modelin yazılım uygulamaları ile 
+entegrasyonu 
+Proje Ekibi  ve 
+Danışman 1-2 Ay 
+Oluşturulan modeller  performans metrikleri kullanılarak 
+karşılaştırılacak ve en yüksek başarıyı gösteren model 
+kullanılarak web ve mobil arayüzü oluşturulacaktır. %10 
+ 
+(*) Çizelgedeki satırlar ve sütunlar gerektiği kadar genişletilebilir ve çoğaltılabilir.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 13 
+  
+ 
+ 
+3.2 Risk Yönetimi 
+   Araştırmanın başarısını olumsuz yönde etkileyebilecek riskler ve bu risklerle karşılaşıldığında araştırmanın 
+başarıyla yürütülmesini sağlamak için alınacak tedbirler (B Planı) ilgili iş paketleri belirtilerek ana hatlarıyla aşağıdaki 
+Risk Yönetimi Tablosu’nda ifade edilir. B planlarının uygulanması araştırmanın temel hedeflerinden sapmaya yol 
+açmamalıdır. 
+ 
+                                                       RİSK YÖNETİMİ TABLOSU* 
+İP 
+No En Önemli Riskler Risk Yönetimi (B Planı) 
+1 Veri setinin uygun olmaması veya yetersiz 
+olması. MIMIC-CXR veri seti kullanılacaktır. 
+2 
+Görüntülerden özellik çıkarımı sonrasında 
+modelin eğitim verilerinde çok iyi sonuç gösterip 
+yeni gelen verilerde başarısız sonuçlar 
+göstermesi veya eğitim verilerinde ve test 
+verilerinde başarısız sonuçlar göstermesi. 
+Görüntülerden özellik çıkarımında kullanılan CNN 
+modellerinin yapısında değişiklikler yapılacaktır. 
+3 Kullanılan NLP modellerinin yapılan çalışmaya 
+uyumluluk sorunu göstermesi. 
+Rapor oluşturma bölümünde Tran sformer modeli 
+olarak GPT2 veya BioClinicalBERT kullanılacaktır. 
+4 
+Modellerin yazılım ortamına entegrasyonu 
+sırasında uyumsuzluk veya performans 
+düşüklüğü yaşanması. 
+Optimize edilmiş model dönüşümleri ve performans 
+iyileştirmeleri yapılacaktır. 
+   (*) Tablodaki satırlar gerektiği kadar genişletilebilir ve çoğaltılabilir. 
+ 
+3.3. Araştırma Olanakları 
+ 
+Bu bölümde projenin yürütüleceği kurum ve kuruluşlarda  var olan ve projede kullanılacak olan altyapı/ekipman 
+(laboratuvar, araç, makine-teçhizat, vb.) olanakları belirtilir. 
+ 
+ARAŞTIRMA OLANAKLARI TABLOSU (*) 
+ 
+Kuruluşta Bulunan Altyapı/Ekipman Türü, Modeli 
+(Laboratuvar, Araç, Makine-Teçhizat, vb.) Projede Kullanım Amacı 
+Yüksek Başarımlı Hesaplama Laboratuvarı 
+Makine Öğrenmesi modellerinin eğitim 
+aşamasında kullanılacaktır. 
+Derin Öğrenme modelleri için iş istasyonu 
+Makine Öğrenmesi modellerinin eğitim 
+aşamasında kullanılacaktır. 
+  
+ (*) Tablodaki satırlar gerektiği kadar genişletilebilir ve çoğaltılabilir. 
+ 
+4. YAYGIN ETKİ 
+ 
+      Önerilen çalışma başarıyla gerçekleştirildiği takdirde araştırmadan elde edilmesi öngörülen ve beklenen yaygın 
+etkilerin neler olabileceği, diğer bir ifadeyle yapılan araştırmadan ne gibi çıktı, sonuç ve etkilerin elde edileceği 
+aşağıdaki tabloda verilir. 
+ 
+ARAŞTIRMA ÖNERİSİNDEN BEKLENEN YAYGIN ETKİ TABLOSU 
+Yaygın Etki Türleri Önerilen Araştırmadan Beklenen Çıktı, Sonuç ve 
+Etkiler 
+Bilimsel/Akademik  
+(Makale, Bildiri, Kitap Bölümü, Kitap) 
+Çalışma kapsamında bir adet uluslararası bildiri ve 1 
+adet ulusal makale çalışması yapılacaktır.
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 14 
+  
+ 
+Ekonomik/Ticari/Sosyal 
+(Ürün, Prototip, Patent, Faydalı Model, Üretim 
+İzni, Çeşit Tescili, Spin -off/Start- up Şirket, 
+Görsel/İşitsel Arşiv, Envanter/Veri 
+Tabanı/Belgeleme Üretimi, Telife Konu Olan 
+Eser, Medyada Yer Alma, Fuar, Proje Pazarı, 
+Çalıştay, Eğitim vb. Bilimsel Etkinlik , Proje 
+Sonuçlarını Kullanacak Kurum/Kuruluş, vb. diğer 
+yaygın etkiler) 
+Mobil ve web arayüzü ile radyolojik görüntülerin 
+yorumlanması yapılacağından model ticarileştirilebilir ve 
+yüksek başarılar elde ettiğinde ticari bir yaygın etki 
+sunabilmektedir.  
+Araştırmacı Yetiştirilmesi ve Yeni Proje(ler) 
+Oluşturma  
+(Yüksek Lisans/Doktora Tezi, 
+Ulusal/Uluslararası Yeni Proje) 
+Bu projede görev alan iki lisans öğrencisinin lisans 
+bitirme tezi tamamlanmış olacaktır.  
+ 
+ 
+ 
+5. BÜTÇE TALEP ÇİZELGESİ 
+Bütçe Türü  Talep Edilen 
+Bütçe Miktarı 
+(TL) 
+Talep Gerekçesi 
+Sarf Malzeme   
+Makina/Teçhizat 
+(Demirbaş) 
+4.000 Yüksek boyutlu verilerin hesaplamaları için bilgisayar RAM donanımı 
+sağlanması 
+ 
+Hizmet Alımı   
+Ulaşım 5.000 Uluslararası bildiride ulaşım ve konaklama ücretinin sağlanması  
+TOPLAM 9.000  
+NOT: Bütçe talebiniz olması halinde hem bu tablonun hem de TÜBİTAK Yönetim Bilgi Sistemi (TYBS) başvuru 
+ekranında karşınıza gelecek olan bütçe alanlarının doldurulması gerekmektedir. Yukardaki tabloda girilen bütçe 
+kalemlerindeki rakamlar ile, TYBS başvuru ekranındaki rakamlar arasında farklılık olması halinde TYBS ekranındaki 
+veriler dikkate alınır ve başvuru sonrasında değiştirilemez. 
+ 
+6. BELİRTMEK İSTEDİĞİNİZ DİĞER KONULAR 
+Sadece araştırma önerisinin değerlendirilmesine katkı sağlayabilecek bilgi/veri (grafik, tablo, vb.) eklenebilir.  
+Proje yürütücüsü ve proje ekibindeki iki üye, Yazılım Mühendisliği son sınıf öğrencisi olup zorunlu stajlarını yapay 
+zeka alanında tamamlayarak bu alanda tecrübe edinmişlerdir. Her iki ekip üyesi, güncel sertifika programlarını 
+takip ederek bilgi ve becerilerini sürekli güncellemektedir. Proje yürütücüsü, Baykar Makine ve Cezeri Yapay Zeka 
+ve Robotik Teknolojileri’nin ortak yürüttüğü bir programda yapay zeka alanında stajını başarıyla tamamlamışken, 
+proje ekibinin diğer üyesi ise İstanbul Bilişim ve Akıllı Kent Teknolojileri A.Ş.’de görüntü işleme alanında zorunlu 
+stajını tamamlamıştır. Lisans eğitimleri boyunca veri madenciliği, makine öğrenmesi, veri bilimi ve yapay zeka 
+dersleri alarak bu alanlarda sağlam bir bilgi birikimi edinmişlerdir. Mezuniyet sonrası her iki üye de görüntü işleme 
+ve doğal dil işleme alanlarında kariyer yapmayı hedeflemekte olup, bu projenin profesyonel gelişimlerine ve 
+sektörde güçlü bir başlangıç yapmalarına katkı sağlayacağı öngörülmektedir. TÜBİTAK tarafından desteklenen 
+bu proje, ekip üyelerinin yapay zeka alanındaki teorik bilgilerini pratiğe dökme ve araştırma alanında yenilikçi bir 
+yaklaşım geliştirmelerine olanak tanıyacaktır. Ayrıca, proje danışmanının sağlıkta yapay zeka alanındaki bilimsel 
+çalışmaları, yüksek lisans ve doktora tezlerini bu alanda tamamlamış olması ve bu alanda ders veriyor oluşu, ekip 
+için karşılaşabilecekleri zorluklarda değerli bir destek sağlayacaktır.  
+  
+ 
+6. EKLER 
+ 
+EK-1:  KAYNAKLAR 
+ 
+[1] E. E. Coche, B. Ghaye, J. de Mey, ve P. Duyck, Ed., Comparative Interpretation of CT and Standard
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 15 
+  
+ 
+Radiography of the Chest . Berlin, Heidelberg: Springer Berlin Heidelberg, 2011. doi: 10.1007/978 -3-540-
+79942-9. 
+[2] J. Yuan, H. Liao, R. Luo, ve J. Luo, “Automatic Radiology Report Generation Based on Multi -view Image 
+Fusion and Medical Concept Enrichment”, 2019, ss. 721-729. doi: 10.1007/978-3-030-32226-7_80. 
+[3] Y. Zhang, X. Wang, Z. Xu, Q. Yu, A. Yuille, ve D. Xu, “When Radiology Report Generation Meets Knowledge 
+Graph”, Proceedings of the AAAI Conference on Artificial Intelligence , c. 34, sy 07, ss. 12910 -12917, Nis. 
+2020, doi: 10.1609/aaai.v34i07.6989. 
+[4] C. Liu, Y. Tian, W. Chen, Y. Song, ve Y. Zhang, “Bootstrapping Large Language Models for Radiology 
+Report Generation”, Proceedings of the AAAI Conference on Artificial Intelligence, c. 38, sy 17, ss. 18635-
+18643, Mar. 2024, doi: 10.1609/aaai.v38i17.29826. 
+[5] J. Zhang vd., “Hierarchical medical image report adversarial generation with hybrid discriminator”, Artif Intell 
+Med, c. 151, s. 102846, May. 2024, doi: 10.1016/j.artmed.2024.102846. 
+[6] “iu_xray.zip - Google Drive”. Erişim: 19 Ekim 2024. [Çevrimiçi]. Erişim adresi: 
+https://drive.google.com/file/d/1c0BXEuDy8Cmm2jfN0YYGkQxFZd2ZIoLg/view 
+[7] S. Zhang, Q. Han, J. Li, Y. Sun, ve Y. Qin, “A medical report generation method integrating teacher–student 
+model and encoder–decoder network”, Biomed Signal Process Control , c. 94, s. 106251, Ağu. 2024, doi: 
+10.1016/j.bspc.2024.106251. 
+[8] B. Jing, P. Xie, ve E. Xing, “On the Automatic Generation of Medical Imaging Reports”, içinde Proceedings 
+of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , 
+Stroudsburg, PA, USA: Association for Computational Linguistics, 2018, ss. 2577 -2586. doi: 
+10.18653/v1/P18-1240. 
+[9] K. Simonyan ve A. Zisserman, “Very Deep Convolutional Networks for Large -Scale Image Recognition”, 
+Eyl. 2014, [Çevrimiçi]. Erişim adresi: http://arxiv.org/abs/1409.1556 
+[10] S. Hochreiter ve J. Schmidhuber, “Long Short -Term Memory”, Neural Comput, c. 9, sy 8, ss. 1735 -1780, 
+Kas. 1997, doi: 10.1162/neco.1997.9.8.1735. 
+[11] Y. Xue vd., “Multimodal Recurrent Model with Attention for Automated Radiology Report Generation”, 2018, 
+ss. 457-466. doi: 10.1007/978-3-030-00928-1_52. 
+[12] X. Wang, Y. Peng, L. Lu, Z. Lu, ve R. M. Summers, “TieNet: Text-Image Embedding Network for Common 
+Thorax Disease Classification and Reporting in Chest X -rays”, Oca. 2018, [Çevrimiçi]. Erişim adresi: 
+http://arxiv.org/abs/1801.04334 
+[13] K. He, X. Zhang, S. Ren, ve J. Sun, “Deep Residual Learning for Image Recognition”, içinde 2016 IEEE 
+Conference on Computer Vision and Pattern Recognition (CVPR) , IEEE, Haz. 2016, ss. 770 -778. doi: 
+10.1109/CVPR.2016.90. 
+[14] O. Alfarghaly, R. Khaled, A. Elkorany, M. Helal, ve A. Fahmy, “Automated radiology report generation using 
+conditioned transformers”, Inform Med Unlocked, c. 24, s. 100557, 2021, doi: 10.1016/j.imu.2021.100557. 
+[15] A. Radford, J. Wu, R. Child, D. Luan, D. Amodei, ve I. Sutskever, “Language Models are Unsupervised 
+Multitask Learners”. [Çevrimiçi]. Erişim adresi: https://github.com/codelucas/newspaper 
+[16] N. Kaur ve A. Mittal, “RadioBERT: A deep learning-based system for medical report generation from chest 
+X-ray images using contextual embeddings”, J Biomed Inform , c. 135, s. 104220, Kas. 2022, doi: 
+10.1016/j.jbi.2022.104220. 
+[17] J. Devlin, M.-W. Chang, K. Lee, ve K. Toutanova, “BERT: Pre -training of Deep Bidirectional Transformers 
+for Language Understanding”, Eki. 2018, [Çevrimiçi]. Erişim adresi: http://arxiv.org/abs/1810.04805 
+[18] J. Lee vd., “BioBERT: a pre-trained biomedical language representation model for biomedical text mining”, 
+Bioinformatics, c. 36, sy 4, ss. 1234-1240, Şub. 2020, doi: 10.1093/bioinformatics/btz682. 
+[19] E. Alsentzer vd., “Publicly Available Clinical BERT Embeddings”, Nis. 2019, Erişim: 21 Ekim 2024. 
+[Çevrimiçi]. Erişim adresi: https://arxiv.org/abs/1904.03323v3 
+[20] V. Sanh, L. Debut, J. Chaumond, ve T. Wolf, “DistilBERT, a distilled version of BERT: smaller, faster, 
+cheaper and lighter”, Eki. 2019, [Çevrimiçi]. Erişim adresi: http://arxiv.org/abs/1910.01108 
+[21] M. Sirshar, M. F. K. Paracha, M. U. Akram, N. S. Alghamdi, S. Z. Y. Zaidi, ve T. Fatima, “Attention based 
+automated radiology report generation using CNN and LSTM”, PLoS One, c. 17, sy 1, s. e0262209, Oca. 
+2022, doi: 10.1371/journal.pone.0262209. 
+[22] H. Tsaniya, C. Fatichah, ve N. Suciati, “Automatic Radiology Report Generator Using Transformer With 
+Contrast-Based Image Enhancement”, IEEE Access , c. 12, ss. 25429 -25442, 2024, doi: 
+10.1109/ACCESS.2024.3364373. 
+[23] P. Divya, Y. Sravani, C. Vishnu, C. K. Mohan, ve Y. W. Chen, “Memory Guided Transformer With Spatio -
+Semantic Visual Extractor for Medical Report Generation”, IEEE J Biomed Health Inform , c. 28, sy 5, ss. 
+3079-3089, May. 2024, doi: 10.1109/JBHI.2024.3371894. 
+[24] G. Sapunov, M. S. Burtsev, ve G. V Sapunov, “Memory Transformer”, doi: 10.48550/arXiv.2006.11527. 
+[25] A. Vaswani vd., “Attention Is All You Need”, Haz. 2017, [Çevrimiçi]. Erişim adresi: 
+http://arxiv.org/abs/1706.03762 
+[26] P. Sloan, P. Clatworthy, E. Simpson, ve M. Mirmehdi, “Automated Radiology Report Generation: A Review 
+of Recent Advances”, May. 2024, doi: 10.1109/RBME.2024.3408456. 
+[27] K. Huang, J. Li, ve J. Altosaar, “ClinicalBERT: Modeling Clinical Notes and Predicting Hospital 
+Readmission”, doi: 10.48550/arXiv.1904.05342. 
+[28] G. Wang, G. Yang, Z. Du, L. Fan, ve X. Li, “ClinicalGPT: Large Language Models Finetuned with Diverse 
+Medical Data and Comprehensive Evaluation”, Haz. 2023, [Çevrimiçi]. Erişim adresi:
+
+2209/A ÜNİVERSİTE ÖĞRENCİLERİ ARAŞTIRMA PROJELERİ DESTEĞİ PROGRAMI 
+ARAŞTIRMA ÖNERİSİ FORMU 
+ 
+ 
+ 16 
+  
+ 
+http://arxiv.org/abs/2306.09968 
+[29] M. M. A. Monshi, J. Poon, ve V. Chung, “Deep learning in generating radiology reports: A survey”, Artif Intell 
+Med, c. 106, s. 101878, Haz. 2020, doi: 10.1016/j.artmed.2020.101878. 
+[30] “medicalai/ClinicalBERT · Hugging Face”. Erişim: 19 Ekim 2024. [Çevrimiçi]. Erişim adresi: 
+https://huggingface.co/medicalai/ClinicalBERT 
+[31] K. Papineni, S. Roukos, T. Ward, ve W.-J. Zhu, “BLEU”, içinde Proceedings of the 40th Annual Meeting on 
+Association for Computational Linguistics  - ACL ’02, Morristown, NJ, USA: Association for Computational 
+Linguistics, 2001, s. 311. doi: 10.3115/1073083.1073135. 
+[32] A. Lavie ve A. Agarwal, “METEOR: An automatic metric for MT evaluation with high levels of correlation 
+with human judgments”, 2007. [Çevrimiçi]. Erişim adresi: 
+https://www.researchgate.net/publication/228346240 
+[33] G. Reale-Nosei, E. Amador -Domínguez, ve E. Serrano, “From vision to text: A comprehensive review of 
+natural image captioning in medical diagnosis and radiology report generation”, Med Image Anal, c. 97, s. 
+103264, Eki. 2024, doi: 10.1016/j.media.2024.103264. 
+[34] R. Vedantam, C. L. Zitnick, ve D. Parikh, “CIDEr: Consensus -based image description evaluation”, içinde 
+2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), IEEE, Haz. 2015, ss. 4566-
+4575. doi: 10.1109/CVPR.2015.7299087. 
+[35] C.-Y. Lin, “ROUGE: A Package for Automatic Evaluation of Summaries”. 
+[36] “FastAPI”. Erişim: 21 Ekim 2024. [Çevrimiçi]. Erişim adresi: https://fastapi.tiangolo.com/ 
+[37] “Docs | Flutter”. Erişim: 19 Ekim 2024. [Çevrimiçi]. Erişim adresi: https://docs.flutter.dev/

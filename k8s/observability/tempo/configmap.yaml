@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tempo-config
+  namespace: chat-system
+  labels:
+    app: tempo
+    app.kubernetes.io/part-of: chat-system
+data:
+  tempo.yml: |
+    server:
+      http_listen_port: 3200
+
+    distributor:
+      receivers:
+        otlp:
+          protocols:
+            grpc:
+              endpoint: 0.0.0.0:4317
+
+    storage:
+      trace:
+        backend: local
+        local:
+          path: /var/tempo/traces
+
+    compactor:
+      compaction:
+        block_retention: 24h

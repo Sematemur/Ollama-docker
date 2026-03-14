@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: litellm-config
+  namespace: chat-system
+  labels:
+    app: litellm
+    app.kubernetes.io/part-of: chat-system
+data:
+  config.yaml: |
+    model_list:
+      - model_name: ollama/qwen2.5:3b
+        litellm_params:
+          model: ollama/qwen2.5:3b
+          api_base: http://host.docker.internal:11434
+      - model_name: ollama/llama3.1:latest
+        litellm_params:
+          model: ollama/llama3.1:latest
+          api_base: http://host.docker.internal:11434
+      - model_name: ollama/nomic-embed-text
+        litellm_params:
+          model: ollama/nomic-embed-text
+          api_base: http://host.docker.internal:11434
+
+    general_settings:
+      master_key: os.environ/LITELLM_MASTER_KEY
+      health_check_details: true
+
+    litellm_settings:
+      enable_public_health_check: true

@@ -1,0 +1,26 @@
+{
+    "total_runtime": 0,
+    "num_documents": 1,
+    "update_documents": 0,
+    "input_load_time": 0,
+    "workflows": {
+        "load_input_documents": {
+            "overall": 0.36008739471435547,
+            "peak_memory_bytes": 1286063,
+            "memory_delta_bytes": 1060462,
+            "tracemalloc_overhead_bytes": 444816
+        },
+        "create_base_text_units": {
+            "overall": 6.392596960067749,
+            "peak_memory_bytes": 42887052,
+            "memory_delta_bytes": 24717342,
+            "tracemalloc_overhead_bytes": 29883056
+        },
+        "create_final_documents": {
+            "overall": 0.096832275390625,
+            "peak_memory_bytes": 660490,
+            "memory_delta_bytes": 287753,
+            "tracemalloc_overhead_bytes": 65456
+        }
+    }
+}

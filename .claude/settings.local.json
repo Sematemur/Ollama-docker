@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(cd \"C:\\\\Users\\\\SEMA\\\\Desktop\\\\system-design\" && docker compose logs litellm 2>&1 | grep -i \"POST\\\\|completion\\\\|error\\\\|timeout\\\\|ollama\\\\|failed\" | tail -30)",
+      "Bash(MSYS_NO_PATHCONV=1 kubectl logs -n chat-system postgres-0 --tail=100 2>&1 | grep -i -E \"drop|create|error|fatal|conversations\")",
+      "Bash(kubectl get:*)",
+      "Bash(minikube ip:*)",
+      "Bash(kubectl logs:*)",
+      "Bash(kubectl exec:*)",
+      "Bash(curl -s http://192.168.49.2:30080/health 2>&1)",
+      "Bash(curl -s http://192.168.49.2:30173/ 2>&1 | head -20)",
+      "Bash(minikube service:*)",
+      "Bash(curl -s http://127.0.0.1:30080/health 2>&1)",
+      "Bash(kubectl port-forward:*)",
+      "Bash(sleep 3 && curl -s http://localhost:8000/health 2>&1)",
+      "Bash(curl -s -X POST http://localhost:8000/chat -H \"Content-Type: application/json\" -d '{\"message\":\"merhaba\",\"session_id\":\"test-k8s-2\"}' 2>&1)"
+    ]
+  }
+}

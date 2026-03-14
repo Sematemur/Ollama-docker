@@ -1,0 +1,2 @@
+{"query":"What is the latest inflation rate in Turkey?", "expected_tool":"tavily_search", "must_use_tool":true, "notes":"Needs external data"}
+{"query":"Explain what Redis cache is in two sentences", "expected_tool":"none", "must_use_tool":false, "notes":"General knowledge"}

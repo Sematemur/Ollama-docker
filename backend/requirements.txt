@@ -12,9 +12,32 @@ uvicorn[standard]
 langchain
 langchain-core
 langchain-openai
+langgraph
 
-# Pydantic - Veri doğrulama (FastAPI ile birlikte gelir ama açıkça belirtelim)
+# Pydantic
 pydantic
+pydantic-settings
 
 # PostgreSQL - Veritabanı bağlantısı
 psycopg2-binary
+
+# Redis response cache
+redis
+
+# Async HTTP for MCP adapters
+httpx
+mcp
+tavily-python
+python-multipart
+
+# Observability
+prometheus-client
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-otlp-proto-grpc
+
+# Local dev - .env loading
+python-dotenv
+
+# Testing
+pytest
